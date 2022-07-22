@@ -7,65 +7,52 @@ import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/config/singleton_config.dart';
 import 'singleton_widget.dart';
 
-class SingletonInstance<T extends Object> extends StatefulWidget {
-  /// new instance from you class.
-  final T instance;
+/// Create a global instance when widget state initialized,
+/// and remove the instance when widget destroyed.
+///
+/// this make you can access the same instance from your widget children without pass any variables.
+///
+/// just wrap your child widget in [SingletonWidget].
+///
+mixin SingletonState<T extends StatefulWidget, VM extends Object> on State<T> implements StateObserver<T> {
+  late VM instance;
 
-  /// callback which wrap your widgets with the global instance.
-  final Widget Function(T singleton) builder;
+  /// new instance from you class.
+  VM registerInstance();
 
   /// callback when widget initialized.
-  final Function(T)? initState;
+  void onInitState(VM instance) {}
 
   /// callback when widget destroyed.
-  final Function(T)? dispose;
+  void onDispose() {}
 
   /// observe on live data variables
-  final Function(StateObserver<StatefulWidget>, T)? registerObservers;
-
-  /// Create a global instance when widget state initialized,
-  /// and remove the instance when widget destroyed.
-  ///
-  /// this make you can access the same instance from your widget children without pass any variables.
-  ///
-  /// just wrap your child widget in [SingletonWidget].
-  const SingletonInstance({
-    required this.instance,
-    required this.builder,
-    this.initState,
-    this.dispose,
-    this.registerObservers,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<SingletonInstance<T>> createState() => _SingletonInstanceState<T>();
-}
-
-class _SingletonInstanceState<T extends Object> extends State<SingletonInstance<T>> with StateObserver {
-  T get instance => getSingleton<T>();
+  void observeLiveData(StateObserver<StatefulWidget> stateObserver, VM instance) {}
 
   @override
   void initState() {
-    registerSingleton<T>(widget.instance);
-    widget.initState?.call(instance);
+    instance = registerInstance();
+    registerSingleton<VM>(instance);
+    onInitState(instance);
     super.initState();
   }
 
   @override
+  FutureOr<void> registerObservers() {
+    observeLiveData(this, instance);
+  }
+
+  @override
   void dispose() {
-    widget.dispose?.call(instance);
-    unregisterSingleton<T>();
+    onDispose();
     super.dispose();
   }
 
-  @override
-  FutureOr<void> registerObservers() {
-    widget.registerObservers?.call(this, instance);
-  }
+  /// callback which wrap your widgets
+  Widget screen(BuildContext context, VM instance);
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder.call(instance);
+    return screen(context, instance);
   }
 }

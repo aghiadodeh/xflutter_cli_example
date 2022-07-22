@@ -3,7 +3,6 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'package:xflutter_cli_example/models/ui_models/ui_message.dart';
 import 'package:xflutter_cli_example/router/app_router.dart';
 import 'package:xflutter_cli_example/ui/widgets/text_fields/livedata_text_field.dart';
 import 'package:xflutter_cli_example/ui/widgets/buttons/customized_button.dart';
@@ -53,21 +52,22 @@ class LoginForm extends StatelessWidget {
 
                 ///// Form Submit /////
                 CombinedLiveDataBuilder.with2<FormzEmail, FormzPassword, bool>(
-                    x1: viewModel.params.mail,
-                    x2: viewModel.params.password,
-                    transform: (email, password) => email.valid && password.valid,
-                    builder: (context, boolean) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: CustomizedButton(
-                          enabled: boolean,
-                          child: const Text("Submit"),
-                          callback: () {
-                            appRouter.push(const Home());
-                          },
-                        ),
-                      );
-                    })
+                  x1: viewModel.params.mail,
+                  x2: viewModel.params.password,
+                  transform: (email, password) => email.valid && password.valid,
+                  builder: (context, boolean) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: CustomizedButton(
+                        enabled: boolean,
+                        child: const Text("Submit"),
+                        callback: () {
+                          appRouter.push(const Home());
+                        },
+                      ),
+                    );
+                  },
+                )
               ],
             );
           },

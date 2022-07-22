@@ -2,6 +2,7 @@
 ///
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
+import 'package:flutterx_live_data/flutterx_live_data.dart';
 import "package:xflutter_cli_example/ui/widgets/singleton/singleton_instance.dart";
 import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
@@ -11,34 +12,38 @@ import 'mobile/login_mobile_screen.dart';
 import 'tablet/login_tablet_screen.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/base_scaffold.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SingletonInstance<LoginViewModel>(
-      instance: LoginViewModel(),
-      initState: (viewModel) {},
-      registerObservers: (lifeCycle, viewModel) {},
-      dispose: (viewModel) {},
-      builder: (viewModel) {
-        return Stack(
-          children: [
-            BaseScaffold(
-              builder: (context, theme) {
-                return const SafeArea(
-                  child: ScreenTypeLayout(
-                    mobile: LoginMobileScreen(),
-                    tablet: LoginTabletScreen(),
-                  ),
-                );
-              },
-            ),
-            LoadingListenerWidget(loading: viewModel.params.loading),
-            SnackBarMessageListener(uiMessage: viewModel.params.uiMessage),
-          ],
-        );
-      },
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScreen, LoginViewModel>, StateObserver {
+  @override
+  void observeLiveData(lifeCycle, viewModel) {
+    super.observeLiveData(lifeCycle, viewModel);
+    // register observers...
+  }
+
+  @override
+  Widget screen(BuildContext context, viewModel) {
+    return Stack(
+      children: [
+        BaseScaffold(
+          builder: (context, theme) {
+            return const ScreenTypeLayout(
+              mobile: LoginMobileScreen(),
+              tablet: LoginTabletScreen(),
+            );
+          },
+        ),
+        LoadingListenerWidget(loading: viewModel.params.loading),
+        SnackBarMessageListener(uiMessage: viewModel.params.uiMessage),
+      ],
     );
   }
+
+  @override
+  LoginViewModel registerInstance() => LoginViewModel();
 }

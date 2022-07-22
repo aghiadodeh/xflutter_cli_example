@@ -17,13 +17,13 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    Home.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HomeScreen());
-    },
     Login.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const LoginScreen());
+    },
+    Home.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomeScreen());
     }
   };
 
@@ -31,17 +31,10 @@ class _$AppRouter extends RootStackRouter {
   List<RouteConfig> get routes => [
         RouteConfig('/#redirect',
             path: '/', redirectTo: '/login', fullMatch: true),
+        RouteConfig(Login.name, path: '/login'),
         RouteConfig(Home.name, path: '/home'),
         RouteConfig(Login.name, path: '/login')
       ];
-}
-
-/// generated route for
-/// [HomeScreen]
-class Home extends PageRouteInfo<void> {
-  const Home() : super(Home.name, path: '/home');
-
-  static const String name = 'Home';
 }
 
 /// generated route for
@@ -50,4 +43,12 @@ class Login extends PageRouteInfo<void> {
   const Login() : super(Login.name, path: '/login');
 
   static const String name = 'Login';
+}
+
+/// generated route for
+/// [HomeScreen]
+class Home extends PageRouteInfo<void> {
+  const Home() : super(Home.name, path: '/home');
+
+  static const String name = 'Home';
 }
