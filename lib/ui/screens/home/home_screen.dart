@@ -3,7 +3,7 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_instance.dart";
+import 'package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart';
 import "./viewmodels/home_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';

@@ -2,7 +2,7 @@
 ///
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
-import 'singleton_instance.dart';
+import 'singleton_state.dart';
 import 'package:xflutter_cli_example/config/singleton_config.dart';
 
 class SingletonWidget<T extends Object> extends StatefulWidget {

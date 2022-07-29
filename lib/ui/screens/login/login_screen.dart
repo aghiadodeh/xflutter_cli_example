@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/config/ui_config.dart';
 import 'package:xflutter_cli_example/router/app_router.dart';
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_instance.dart";
+import 'package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart';
 import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';
