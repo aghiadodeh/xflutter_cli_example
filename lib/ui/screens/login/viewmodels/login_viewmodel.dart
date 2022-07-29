@@ -27,4 +27,16 @@ class LoginViewModel {
     final newValue = FormzPassword.dirty(value);
     attr.postValue(newValue);
   }
+
+  /// submit [LoginParams.mail] & [LoginParams.password] to server
+  Future<void> login() async {
+    // notify ui to show loader
+    params.loading.postValue(true);
+
+    // send request to server
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      params.result.postValue(true);
+      params.loading.postValue(false);
+    });
+  }
 }

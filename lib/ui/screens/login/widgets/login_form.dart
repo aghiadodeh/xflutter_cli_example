@@ -3,13 +3,11 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'package:xflutter_cli_example/router/app_router.dart';
 import 'package:xflutter_cli_example/ui/widgets/text_fields/livedata_text_field.dart';
 import 'package:xflutter_cli_example/ui/widgets/buttons/customized_button.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
-
 import "package:xflutter_cli_example/ui/widgets/singleton/singleton_widget.dart";
 import "../viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
@@ -60,10 +58,8 @@ class LoginForm extends StatelessWidget {
                       width: double.infinity,
                       child: CustomizedButton(
                         enabled: boolean,
+                        callback: viewModel.login,
                         child: const Text("Submit"),
-                        callback: () {
-                          appRouter.push(const Home());
-                        },
                       ),
                     );
                   },

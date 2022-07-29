@@ -21,6 +21,9 @@ class LoginParams {
   /// Login mail
   final MutableLiveData<FormzEmail> mail = MutableLiveData(initialValue: const FormzEmail.pure());
 
+  /// notify ui that login response handled
+  final MutableLiveData<bool> result = MutableLiveData(initialValue: false);
+
   /// in progress
   final MutableLiveData<bool> loading = MutableLiveData(initialValue: false);
 
