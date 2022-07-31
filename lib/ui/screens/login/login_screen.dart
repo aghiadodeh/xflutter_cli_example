@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScre
       if (loading) hideSoftKeyboard(context);
     });
 
-    // naviage to [HomeScreen] when login success
+    // navigate to [HomeScreen] when login success
     viewModel.params.result.observe(lifeCycle, (value) {
       if (value) appRouter.replace(const Home());
     });

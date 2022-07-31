@@ -21,7 +21,7 @@ packages:
       name: animated_infinite_scroll_pagination
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.8"
   animations:
     dependency: "direct main"
     description:
