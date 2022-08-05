@@ -5,6 +5,9 @@
 /// state managment for UI
 ///
 /// store and manage your liveData in [LoginParams].
+import 'package:xflutter_cli_example/models/data/user/user.dart';
+import 'package:xflutter_cli_example/network/authentication_manager.dart';
+
 import "login_params.dart";
 import 'package:lazy_evaluation/lazy_evaluation.dart';
 
@@ -34,7 +37,8 @@ class LoginViewModel {
     params.loading.postValue(true);
 
     // send request to server
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 2000), () async {
+      await AuthenticationManager.login(const User(id: "1", name: "Aghiad Odeh"));
       params.result.postValue(true);
       params.loading.postValue(false);
     });

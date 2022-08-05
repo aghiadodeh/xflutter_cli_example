@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dio: ^4.0.4
+  flutter_secure_storage: ^5.0.2
   retrofit: ^3.0.1
   connectivity_plus: ^2.3.0
   auto_route: ^4.0.1
