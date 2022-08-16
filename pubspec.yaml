@@ -52,7 +52,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   lazy_evaluation: ^1.1.0
-  animated_infinite_scroll_pagination: ^0.0.8
+  animated_infinite_scroll_pagination: ^0.1.1
 
 dev_dependencies:
   retrofit_generator: ^3.0.1+1

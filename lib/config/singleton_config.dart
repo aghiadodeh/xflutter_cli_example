@@ -3,7 +3,7 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:get_it/get_it.dart';
 
-/// create a global class instance
+/// create a global class instance inside [GetIt]
 void registerSingleton<T extends Object>(T instance, {String? instanceName}) {
   try {
     GetIt.I.registerSingleton<T>(instance, instanceName: instanceName);
@@ -12,16 +12,17 @@ void registerSingleton<T extends Object>(T instance, {String? instanceName}) {
   }
 }
 
-/// get the global instance
+/// get the global instance from [GetIt]
 T getSingleton<T extends Object>({String? instanceName}) {
   return GetIt.I.get<T>(instanceName: instanceName);
 }
 
-/// remove singleton instance
+/// remove singleton instance from [GetIt]
 Future<void> unregisterSingleton<T extends Object>({String? instanceName}) async {
   await GetIt.I.unregister<T>(instanceName: instanceName);
 }
 
+/// check if instance already registerd inside [GetIt]
 bool isRegistered({String? instanceName}) {
   return GetIt.I.isRegistered(instanceName: instanceName);
 }

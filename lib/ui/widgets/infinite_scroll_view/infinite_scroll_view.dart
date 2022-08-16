@@ -33,6 +33,12 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
   /// default value is `true`
   final bool refreshIndicator;
 
+  /// Scroll Direction default value is [Axis.vertical]
+  final Axis scrollDirection;
+
+  /// A delegate that controls the layout of the children within the [GridView].
+  final SliverGridDelegate? gridDelegate;
+
   /// build [AnimatedInfiniteScrollView] with basic configuration
   const InfiniteScrollView({
     required this.itemBuilder,
@@ -41,6 +47,8 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
     this.topWidget,
     this.retry,
     this.physics,
+    this.scrollDirection = Axis.vertical,
+    this.gridDelegate,
     Key? key,
   }) : super(key: key);
 
@@ -55,6 +63,8 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
       errorWidget: PaginationErrorWidget(retry: retry),
       physics: physics ?? scrollPhysics,
       onRefresh: onRefresh,
+      scrollDirection: scrollDirection,
+      gridDelegate: gridDelegate,
       itemBuilder: (item) => CustomizedAnimatedWidget(child: itemBuilder.call(item)),
     );
   }
