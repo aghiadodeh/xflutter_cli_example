@@ -3,9 +3,8 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'package:xflutter_cli_example/config/ui_config.dart';
 import 'package:xflutter_cli_example/router/app_router.dart';
-import 'package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart';
+import "package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart";
 import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';
@@ -24,11 +23,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScreen, LoginViewModel>, StateObserver {
   @override
   void observeLiveData(lifeCycle, viewModel) {
-    // hide soft keyboard in loading state
-    viewModel.params.loading.observe(lifeCycle, (loading) {
-      if (loading) hideSoftKeyboard(context);
-    });
-
     // navigate to [HomeScreen] when login success
     viewModel.params.result.observe(lifeCycle, (value) {
       if (value) appRouter.replace(const Home());
@@ -40,15 +34,13 @@ class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScre
     return Stack(
       children: [
         BaseScaffold(
-          builder: (context, theme) {
-            return const ScreenTypeLayout(
-              mobile: LoginMobileScreen(),
-              tablet: LoginTabletScreen(),
-            );
-          },
+          builder: (context, theme) => const ScreenTypeLayout(
+            mobile: LoginMobileScreen(),
+            tablet: LoginTabletScreen(),
+          ),
         ),
-        LoadingListenerWidget(loading: viewModel.params.loading),
-        SnackBarMessageListener(uiMessage: viewModel.params.uiMessage),
+        LoadingListenerWidget(loading: viewModel.baseParams.loading),
+        SnackBarMessageListener(uiMessage: viewModel.baseParams.uiMessage),
       ],
     );
   }

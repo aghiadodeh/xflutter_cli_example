@@ -21,25 +21,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingletonState<HomeScreen, HomeViewModel>, StateObserver {
   @override
-  void observeLiveData(lifeCycle, viewModel) {
-    super.observeLiveData(lifeCycle, viewModel);
-    // register observers...
-  }
-
-  @override
   Widget screen(BuildContext context, viewModel) {
     return Stack(
       children: [
         BaseScaffold(
-          builder: (context, theme) {
-            return const ScreenTypeLayout(
-              mobile: HomeMobileScreen(),
-              tablet: HomeTabletScreen(),
-            );
-          },
+          builder: (context, theme) => const ScreenTypeLayout(
+            mobile: HomeMobileScreen(),
+            tablet: HomeTabletScreen(),
+          ),
         ),
-        LoadingListenerWidget(loading: viewModel.params.loading),
-        SnackBarMessageListener(uiMessage: viewModel.params.uiMessage),
+        LoadingListenerWidget(loading: viewModel.baseParams.loading),
+        SnackBarMessageListener(uiMessage: viewModel.baseParams.uiMessage),
       ],
     );
   }

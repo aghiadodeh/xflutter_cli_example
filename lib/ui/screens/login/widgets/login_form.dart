@@ -8,6 +8,7 @@ import 'package:xflutter_cli_example/ui/widgets/buttons/customized_button.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
+
 import "package:xflutter_cli_example/ui/widgets/singleton/singleton_widget.dart";
 import "../viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
@@ -49,21 +50,19 @@ class LoginForm extends StatelessWidget {
                 ),
 
                 ///// Form Submit /////
-                CombinedLiveDataBuilder.with2<FormzEmail, FormzPassword, bool>(
-                  x1: viewModel.params.mail,
-                  x2: viewModel.params.password,
-                  transform: (email, password) => email.valid && password.valid,
+                LiveDataBuilder<bool>(
+                  data: viewModel.baseParams.loading,
                   builder: (context, boolean) {
                     return SizedBox(
                       width: double.infinity,
                       child: CustomizedButton(
-                        enabled: boolean,
+                        enabled: !boolean,
                         callback: viewModel.login,
                         child: const Text("Submit"),
                       ),
                     );
                   },
-                )
+                ),
               ],
             );
           },
