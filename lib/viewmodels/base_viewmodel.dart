@@ -13,7 +13,7 @@ abstract class BaseViewModel extends LifeCycle {
   final _baseParams = Lazy(() => BaseParams());
   BaseParams get baseParams => _baseParams.value;
 
-  Future<void> callHttpRequest(Future Function() request) async {
+  Future<void> callHttpRequest(Future Function() request, {bool loader = true}) async {
     // hide soft keyboard
     eventBus.fire(const SoftKeyboardEvent());
 
@@ -21,13 +21,13 @@ abstract class BaseViewModel extends LifeCycle {
     bool isOnline = await isConnectingToInternet();
     if (isOnline) {
       // notify ui to show loader
-      baseParams.loading.postValue(true);
+      if (loader) baseParams.loading.postValue(true);
 
       // call http request
       await request.call();
 
       // hide loader
-      baseParams.loading.postValue(false);
+      if (loader) baseParams.loading.postValue(false);
     } else {
       // notify error message
       baseParams.uiMessage.postValue(UiMessage(message: "check_internet_connection".tr()));
