@@ -8,9 +8,11 @@
 import 'package:xflutter_cli_example/models/data/user/user.dart';
 import 'package:xflutter_cli_example/network/authentication_manager.dart';
 import 'package:xflutter_cli_example/network/config/logger.dart';
+
 import "login_params.dart";
 import 'package:lazy_evaluation/lazy_evaluation.dart';
 import 'package:xflutter_cli_example/viewmodels/base_viewmodel.dart';
+
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
@@ -34,19 +36,19 @@ class LoginViewModel extends BaseViewModel {
   @override
   void onInit() {
     super.onInit();
-    log("allocated in memory", name: "LoginViewModel");
+    logger("allocated in memory", name: "LoginViewModel");
   }
 
   @override
   void onReady() {
     super.onReady();
-    log("Ready", name: "LoginViewModel");
+    logger("Ready", name: "LoginViewModel");
   }
 
   @override
   void onDispose() {
     super.onDispose();
-    log("Disposed", name: "LoginViewModel");
+    logger("Disposed", name: "LoginViewModel");
   }
 
   /// submit [LoginParams.mail] & [LoginParams.password] to server
@@ -56,7 +58,7 @@ class LoginViewModel extends BaseViewModel {
       // ...
 
       // handle response
-      Future.delayed(const Duration(milliseconds: 2000));
+      await Future.delayed(const Duration(milliseconds: 2000));
       await AuthenticationManager.login(const User(id: "1", name: "Aghiad Odeh"));
       params.result.postValue(true);
     });

@@ -9,16 +9,16 @@
 /// more details: https://medium.com/@aghiadodeh/flutter-live-data-tutorial-4c65f1b7ff5e
 
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
-import 'package:flutterx_live_data/flutterx_live_data.dart';
+import 'package:xflutter_cli_example/extensions/live_data_extension.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
 
 class LoginParams {
   /// notify ui that login response handled
-  final MutableLiveData<bool> result = MutableLiveData(initialValue: false);
+  final result = false.liveData;
 
   /// Login password
-  final MutableLiveData<FormzPassword> password = MutableLiveData(initialValue: const FormzPassword.pure());
+  final password = const FormzPassword.pure().liveData;
 
   /// Login mail
-  final MutableLiveData<FormzEmail> mail = MutableLiveData(initialValue: const FormzEmail.pure());
+  final mail = const FormzEmail.pure().liveData;
 }

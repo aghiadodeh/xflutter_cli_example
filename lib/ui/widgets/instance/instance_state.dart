@@ -4,18 +4,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'package:xflutter_cli_example/config/singleton_config.dart';
+import 'package:xflutter_cli_example/config/instance_config.dart';
 import 'package:xflutter_cli_example/viewmodels/base_viewmodel.dart';
-import 'singleton_widget.dart';
+import 'instance_builder.dart';
 
 /// Create a global instance when widget state initialized,
 /// and remove the instance when widget destroyed.
 ///
 /// this make you can access the same instance from your widget children without pass any variables.
 ///
-/// just wrap your child widget in [SingletonWidget].
-///
-mixin SingletonState<T extends StatefulWidget, VM extends BaseViewModel> on State<T> implements StateObserver<T> {
+/// just wrap your child widget in [InstanceBuilder].
+mixin InstanceState<T extends StatefulWidget, VM extends BaseViewModel> on State<T> implements StateObserver<T> {
   late VM instance;
 
   String? instanceName;
@@ -35,11 +34,11 @@ mixin SingletonState<T extends StatefulWidget, VM extends BaseViewModel> on Stat
   @override
   void initState() {
     instance = registerInstance();
-    registerSingleton<VM>(instance, instanceName: instanceName);
-    instance.onInit();
-    WidgetsBinding.instance.addPostFrameCallback((_) => instance.onReady());
+    putInstance<VM>(instance, instanceName: instanceName);
     onInitState(instance);
+    instance.onInit();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => instance.onReady());
   }
 
   @override
@@ -51,7 +50,7 @@ mixin SingletonState<T extends StatefulWidget, VM extends BaseViewModel> on Stat
   void dispose() {
     onDispose();
     instance.onDispose();
-    unregisterSingleton<VM>(instanceName: instanceName);
+    destroyInstance<VM>(instanceName: instanceName);
     super.dispose();
   }
 

@@ -19,27 +19,45 @@ class _$AppRouter extends RootStackRouter {
   final Map<String, PageFactory> pagesMap = {
     Home.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HomeScreen());
+        routeData: routeData,
+        child: const HomeScreen(),
+      );
     },
     Login.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const LoginScreen());
-    }
+        routeData: routeData,
+        child: const LoginScreen(),
+      );
+    },
   };
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig('/#redirect',
-            path: '/', redirectTo: '/login', fullMatch: true),
-        RouteConfig(Home.name, path: '/home'),
-        RouteConfig(Login.name, path: '/login')
+        RouteConfig(
+          '/#redirect',
+          path: '/',
+          redirectTo: '/login',
+          fullMatch: true,
+        ),
+        RouteConfig(
+          Home.name,
+          path: '/home',
+        ),
+        RouteConfig(
+          Login.name,
+          path: '/login',
+        ),
       ];
 }
 
 /// generated route for
 /// [HomeScreen]
 class Home extends PageRouteInfo<void> {
-  const Home() : super(Home.name, path: '/home');
+  const Home()
+      : super(
+          Home.name,
+          path: '/home',
+        );
 
   static const String name = 'Home';
 }
@@ -47,7 +65,11 @@ class Home extends PageRouteInfo<void> {
 /// generated route for
 /// [LoginScreen]
 class Login extends PageRouteInfo<void> {
-  const Login() : super(Login.name, path: '/login');
+  const Login()
+      : super(
+          Login.name,
+          path: '/login',
+        );
 
   static const String name = 'Login';
 }

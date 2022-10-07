@@ -2,8 +2,9 @@
 /// 
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/theme_provider.dart';
+import 'package:flutterx_live_data/flutterx_live_data.dart';
+import '../../../config/instance_config.dart';
+import '../../../controllers/theme_controller.dart';
 
 class ThemeWidget extends StatelessWidget {
   /// callback which wrap your widgets in current appTheme
@@ -14,8 +15,11 @@ class ThemeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, value, _) => builder(context, value.theme),
+    final themeController = findInstance<ThemeController>();
+    return LiveDataBuilder<ThemeMode>(
+      data: themeController.themeMode,
+      builder: (context, value) => builder(context, themeController.theme),
     );
   }
 }
+

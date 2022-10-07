@@ -21,10 +21,10 @@ class CustomizedAnimatedWidget extends StatefulWidget {
   const CustomizedAnimatedWidget({
     Key? key,
     required this.child,
-    this.duration = const Duration(milliseconds: 300),
-    this.delay = const Duration(milliseconds: 100),
+    this.duration = const Duration(milliseconds: 200),
+    this.delay = const Duration(milliseconds: 0),
     this.manualTrigger = false,
-    this.from = 50,
+    this.from = 30,
   }) : super(key: key);
 
   @override

@@ -2,7 +2,7 @@
 ///
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_widget.dart";
+import "package:xflutter_cli_example/ui/widgets/instance/instance_builder.dart";
 import "../viewmodels/home_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
 
@@ -11,7 +11,7 @@ class HomeTabletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingletonWidget<HomeViewModel>(
+    return InstanceBuilder<HomeViewModel>(
       builder: (viewModel) {
         return ThemeWidget(
           builder: (context, theme) {

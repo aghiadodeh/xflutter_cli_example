@@ -6,7 +6,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:xflutter_cli_example/models/responses/base_response/base_response.dart';
-import 'package:xflutter_cli_example/ui/core/events/bus_events.dart';
 
 abstract class BaseRepository {
   /// calling request only if device connected to internet, else return null data response
@@ -14,14 +13,15 @@ abstract class BaseRepository {
     bool isOnline = await isConnectingToInternet();
     if (isOnline) {
       final response = await request.call();
-      if (response.responseCode == 401) eventBus.fire(const UnauthorizedEvent());
+      if (response.responseCode == 401) {
+        // TODO: handle Unauthorized Response
+      }
       return response;
     } else {
       return BaseResponse<T>(
         success: false,
         message: "check_internet_connection",
         data: null,
-        errors: ["check_internet_connection"],
       );
     }
   }
@@ -30,7 +30,6 @@ abstract class BaseRepository {
   Future<BaseResponse<T>> catchError<T>(e) async {
     Map<String, dynamic>? response;
     String? message;
-    List<String> errors = [];
     if (kDebugMode) print(e);
     try {
       if (e is DioError) {
@@ -39,12 +38,6 @@ abstract class BaseRepository {
         }
         if (response != null) message = response['message'];
         message ??= e.message;
-        final serverErrors = response?["errors"];
-        if (serverErrors is List) {
-          for (var error in serverErrors) {
-            errors.add(error.toString());
-          }
-        }
       } else {
         message = e.toString();
       }
@@ -53,7 +46,7 @@ abstract class BaseRepository {
         print(error);
       }
     }
-    return BaseResponse<T>(message: message, data: null, success: false, errors: errors);
+    return BaseResponse<T>(message: message, data: null, success: false);
   }
 }
 

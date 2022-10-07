@@ -11,7 +11,6 @@ class BaseResponse<T> {
   final T? data;
   @JsonKey(name: 'status')
   final bool success;
-  final List<String>? errors;
   @JsonKey(name: 'status_code')
   final int? responseCode;
 
@@ -20,7 +19,6 @@ class BaseResponse<T> {
     this.data,
     this.success = true,
     this.responseCode = 200,
-    this.errors = const [],
   });
 
   factory BaseResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$BaseResponseFromJson(json, (Object? json) {

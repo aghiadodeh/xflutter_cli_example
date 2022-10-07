@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/router/app_router.dart';
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart";
+import "package:xflutter_cli_example/ui/widgets/instance/instance_state.dart";
 import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';
@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScreen, LoginViewModel>, StateObserver {
+class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScreen, LoginViewModel>, StateObserver {
   @override
   void observeLiveData(lifeCycle, viewModel) {
     // navigate to [HomeScreen] when login success
@@ -34,10 +34,12 @@ class _LoginScreenState extends State<LoginScreen> with SingletonState<LoginScre
     return Stack(
       children: [
         BaseScaffold(
-          builder: (context, theme) => const ScreenTypeLayout(
-            mobile: LoginMobileScreen(),
-            tablet: LoginTabletScreen(),
-          ),
+          builder: (context, theme) {
+            return const ScreenTypeLayout(
+              mobile: LoginMobileScreen(),
+              tablet: LoginTabletScreen(),
+            );
+          },
         ),
         LoadingListenerWidget(loading: viewModel.baseParams.loading),
         SnackBarMessageListener(uiMessage: viewModel.baseParams.uiMessage),

@@ -3,7 +3,7 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'package:xflutter_cli_example/ui/widgets/singleton/singleton_state.dart';
+import "package:xflutter_cli_example/ui/widgets/instance/instance_state.dart";
 import "./viewmodels/home_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';
@@ -19,16 +19,18 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingletonState<HomeScreen, HomeViewModel>, StateObserver {
+class _HomeScreenState extends State<HomeScreen> with InstanceState<HomeScreen, HomeViewModel>, StateObserver {
   @override
   Widget screen(BuildContext context, viewModel) {
     return Stack(
       children: [
         BaseScaffold(
-          builder: (context, theme) => const ScreenTypeLayout(
-            mobile: HomeMobileScreen(),
-            tablet: HomeTabletScreen(),
-          ),
+          builder: (context, theme) {
+            return const ScreenTypeLayout(
+              mobile: HomeMobileScreen(),
+              tablet: HomeTabletScreen(),
+            );
+          },
         ),
         LoadingListenerWidget(loading: viewModel.baseParams.loading),
         SnackBarMessageListener(uiMessage: viewModel.baseParams.uiMessage),

@@ -4,17 +4,18 @@
 import 'package:flutter/material.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/base_scroll_view.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
-import 'package:xflutter_cli_example/ui/screens/login/widgets/login_form.dart';
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_widget.dart";
+import "package:xflutter_cli_example/ui/widgets/instance/instance_builder.dart";
 import "../viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
+
+import '../widgets/login_form.dart';
 
 class LoginTabletScreen extends StatelessWidget {
   const LoginTabletScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingletonWidget<LoginViewModel>(
+    return InstanceBuilder<LoginViewModel>(
       builder: (viewModel) {
         return ThemeWidget(
           builder: (context, theme) {

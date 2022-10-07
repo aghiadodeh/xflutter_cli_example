@@ -35,13 +35,13 @@ class AnimatedColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _duration(Widget e) => Duration(milliseconds: duration + (children.indexOf(e) * animateDelay).toInt());
+    widgetDuration(Widget e) => Duration(milliseconds: duration + (children.indexOf(e) * animateDelay).toInt());
 
     return Column(
       mainAxisAlignment: mainAxisAlignment,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisSize: mainAxisSize,
-      children: children.map((e) => CustomizedAnimatedWidget(duration: _duration(e), child: e)).toList(),
+      children: children.map((e) => CustomizedAnimatedWidget(duration: widgetDuration(e), child: e)).toList(),
     );
   }
 }

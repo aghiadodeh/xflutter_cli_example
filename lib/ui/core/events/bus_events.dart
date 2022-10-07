@@ -3,7 +3,7 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:event_bus/event_bus.dart';
 
-/// make sure you are using the same instance of your EventBus in all components.
+/// make sure you are using the same instance of your [EventBus] in all components.
 final EventBus eventBus = EventBus();
 
 /// Send event from non-context class to ui for hide softKeyboard
@@ -14,4 +14,9 @@ class SoftKeyboardEvent {
 /// Send event from non-context class to ui for logOut
 class UnauthorizedEvent {
   const UnauthorizedEvent();
+}
+
+/// Send event from non-context class to main class to change current theme
+class ThemeChangedEvent {
+  const ThemeChangedEvent();
 }

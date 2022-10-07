@@ -8,8 +8,7 @@ import 'package:xflutter_cli_example/ui/widgets/buttons/customized_button.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
-
-import "package:xflutter_cli_example/ui/widgets/singleton/singleton_widget.dart";
+import "package:xflutter_cli_example/ui/widgets/instance/instance_builder.dart";
 import "../viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
 
@@ -18,7 +17,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingletonWidget<LoginViewModel>(
+    return InstanceBuilder<LoginViewModel>(
       builder: (viewModel) {
         return ThemeWidget(
           builder: (context, theme) {

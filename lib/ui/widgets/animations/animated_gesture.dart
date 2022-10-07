@@ -33,11 +33,11 @@ class _AnimatedGestureState extends State<AnimatedGesture> {
       scaleValue: widget.scaleValue,
       type: widget.animationType ?? AnimationType.fadeScale,
       child: InkWell(
-        splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
-        onTap: () async {
+        onTap: () {
           globalKey.currentState?.animate(callback: widget.callback);
         },
         child: widget.child,
