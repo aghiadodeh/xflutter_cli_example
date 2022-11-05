@@ -6,6 +6,7 @@
 ///
 /// store and manage your liveData in [LoginParams].
 import 'package:xflutter_cli_example/models/data/user/user.dart';
+import 'package:xflutter_cli_example/models/responses/base_response/base_response.dart';
 import 'package:xflutter_cli_example/network/authentication_manager.dart';
 import 'package:xflutter_cli_example/network/config/logger.dart';
 
@@ -53,14 +54,16 @@ class LoginViewModel extends BaseViewModel {
 
   /// submit [LoginParams.mail] & [LoginParams.password] to server
   void login() {
-    callHttpRequest(() async {
-      // send request to server
-      // ...
-
-      // handle response
-      await Future.delayed(const Duration(milliseconds: 2000));
-      await AuthenticationManager.login(const User(id: "1", name: "Aghiad Odeh"));
-      params.result.postValue(true);
-    });
+    callHttpRequest<dynamic>(
+      () => Future.delayed(const Duration(milliseconds: 2000), () => BaseResponse<dynamic>(data: null, success: true)),
+      loading: baseParams.loading,
+      callback: (result) {
+        () async {
+          // handle data which handled from response
+          await AuthenticationManager.login(const User(id: "1", name: "Aghiad Odeh"));
+          params.result.postValue(true);
+        };
+      },
+    );
   }
 }
