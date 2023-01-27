@@ -26,3 +26,14 @@ Future<void> destroyInstance<T extends Object>({String? instanceName}) async {
 bool isRegistered<T extends Object>({String? instanceName}) {
   return GetIt.I.isRegistered<T>(instanceName: instanceName);
 }
+
+/// if instance isRegistered => return the Registered instance
+///
+/// if instance is not registered => return `null`
+T? findInstanceOrNull<T extends Object>({String? instanceName}) {
+  if (isRegistered<T>(instanceName: instanceName)) {
+    return GetIt.I.get<T>(instanceName: instanceName);
+  } else {
+    return null;
+  }
+}

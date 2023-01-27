@@ -16,18 +16,14 @@ class LoginTabletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InstanceBuilder<LoginViewModel>(
-      builder: (viewModel) {
-        return ThemeWidget(
-          builder: (context, theme) {
-            return const BaseScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: fourUnits, vertical: threeUnits),
-                child: LoginForm(),
-              ),
-            );
-          },
-        );
-      },
+      builder: (viewModel) => ThemeWidget(
+        builder: (context, theme) => const BaseScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: fourUnits, vertical: threeUnits),
+            child: LoginForm(),
+          ),
+        ),
+      ),
     );
   }
 }

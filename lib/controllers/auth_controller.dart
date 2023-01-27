@@ -4,7 +4,7 @@ import '../models/data_models.dart';
 
 User user = const User();
 
-class AuthenticationManager {
+class AuthController {
   /// save user object in localStorage
   static login(User object) async {
     await saveUser(object);

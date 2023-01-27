@@ -15,6 +15,10 @@ class EventEmitter<T> {
     _controller.add(value.call());
   }
 
+  void emitValue(T value) {
+    _controller.add(value);
+  }
+
   void observe(Function(T) callback) {
     _streamSubscription = result.listen((event) => callback.call(event));
   }

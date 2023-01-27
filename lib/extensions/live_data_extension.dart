@@ -20,6 +20,9 @@ extension Utils<T> on T {
   /// create new [MutableLiveData] instance with initialValue from passed variable value
   MutableLiveData<T> get liveData => MutableLiveData<T>(initialValue: this);
 
+  /// create new [LiveResult] instance with initialValue [ResultState.idle]
+  LiveResult<T> get liveResult => LiveResult(initialState: ResultState.idle);
+
   /// create new [MutableMediatorLiveData] instance with initialValue from passed variable value
   MutableMediatorLiveData<T> get mediatorLiveData => MutableMediatorLiveData<T>(initialValue: this);
 }

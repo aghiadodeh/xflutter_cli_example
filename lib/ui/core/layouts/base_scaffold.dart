@@ -3,8 +3,8 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:xflutter_cli_example/extensions/theme_extensions.dart';
-import 'package:xflutter_cli_example/extensions/nullable_extensions.dart';
+import 'package:xflutter_cli_example/extensions/theme_extension.dart';
+import 'package:xflutter_cli_example/extensions/nullable_extension.dart';
 import 'theme_widget.dart';
 
 class BaseScaffold extends StatefulWidget {

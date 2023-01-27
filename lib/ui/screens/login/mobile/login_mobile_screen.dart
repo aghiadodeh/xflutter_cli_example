@@ -3,8 +3,8 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/base_scroll_view.dart';
+import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
 import "package:xflutter_cli_example/ui/widgets/instance/instance_builder.dart";
-import '../../../resources/dimensions/dimensions.dart';
 import "../viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
 
@@ -16,18 +16,14 @@ class LoginMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InstanceBuilder<LoginViewModel>(
-      builder: (viewModel) {
-        return ThemeWidget(
-          builder: (context, theme) {
-            return const BaseScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: towUnits, vertical: threeUnits),
-                child: LoginForm(),
-              ),
-            );
-          },
-        );
-      },
+      builder: (viewModel) => ThemeWidget(
+        builder: (context, theme) => const BaseScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: twoUnits, vertical: threeUnits),
+            child: LoginForm(),
+          ),
+        ),
+      ),
     );
   }
 }

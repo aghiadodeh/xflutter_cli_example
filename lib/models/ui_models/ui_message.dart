@@ -2,8 +2,11 @@
 /// 
 /// more info: https://xflutter-cli.aghiadodeh.com
 
+enum UiMessageState { success, error, initial }
+
 class UiMessage {
   String? message;
-  int? code;
-  UiMessage({this.message, this.code});
+  String? action;
+  UiMessageState state;
+  UiMessage({this.message, this.action, this.state = UiMessageState.initial});
 }

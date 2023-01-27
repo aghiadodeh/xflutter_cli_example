@@ -2,43 +2,24 @@
 /// 
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
-import 'package:flutterx_live_data/flutterx_live_data.dart';
-import 'dart:async';
-import 'package:xflutter_cli_example/extensions/nullable_extensions.dart';
-import 'package:xflutter_cli_example/models/ui_models/ui_message.dart';
 
-class SnackBarMessageListener extends StatefulWidget {
-  final LiveData<UiMessage> uiMessage;
-  const SnackBarMessageListener({required this.uiMessage, Key? key}) : super(key: key);
-
-  @override
-  State<SnackBarMessageListener> createState() => _SnackBarMessageListenerState();
-}
-
-class _SnackBarMessageListenerState extends State<SnackBarMessageListener> with StateObserver {
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.shrink();
-  }
-
-  @override
-  FutureOr<void> registerObservers() {
-    widget.uiMessage.observe(this, (value) {
-      value.message?.let((it) => showSnackBar(context: context, message: it));
-      value.message = null;
-    });
-  }
-}
-
-void showSnackBar({required BuildContext context, required String message, Function()? callback, TextStyle? textStyle}) {
+void showSnackBar({
+  required BuildContext context,
+  required String message,
+  Function()? callback,
+  TextStyle? textStyle,
+  String? action,
+  Color? backgroundColor,
+}) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
         content: Text(message, style: textStyle),
-        backgroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
         action: SnackBarAction(
-          label: "Ok",
+          label: action ?? "Ok",
+          textColor: Theme.of(context).backgroundColor,
           onPressed: () {
             callback?.call();
           },

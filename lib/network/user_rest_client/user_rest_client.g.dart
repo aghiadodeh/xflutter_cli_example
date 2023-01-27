@@ -12,18 +12,20 @@ class _UserRestClient implements UserRestClient {
   _UserRestClient(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://www.staging.com/api/user';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<BaseResponse<User>> create({required user}) async {
+  Future<BaseResponse<User>> create({
+    required user,
+    cancelToken,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(user.toJson());
@@ -35,9 +37,10 @@ class _UserRestClient implements UserRestClient {
     )
             .compose(
               _dio.options,
-              '',
+              '/user',
               queryParameters: queryParameters,
               data: _data,
+              cancelToken: cancelToken,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<User>.fromJson(
@@ -51,23 +54,26 @@ class _UserRestClient implements UserRestClient {
   Future<BaseResponse<User>> update({
     required id,
     required user,
+    cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(user.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
-      method: 'PATCH',
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/user/${id}',
               queryParameters: queryParameters,
               data: _data,
+              cancelToken: cancelToken,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<User>.fromJson(
@@ -82,6 +88,7 @@ class _UserRestClient implements UserRestClient {
     required page,
     perPage = Env.perPage,
     query,
+    cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -100,9 +107,10 @@ class _UserRestClient implements UserRestClient {
     )
             .compose(
               _dio.options,
-              '',
+              '/user',
               queryParameters: queryParameters,
               data: _data,
+              cancelToken: cancelToken,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<List<User>>.fromJson(
@@ -115,9 +123,13 @@ class _UserRestClient implements UserRestClient {
   }
 
   @override
-  Future<BaseResponse<User>> findOne({required id}) async {
+  Future<BaseResponse<User>> findOne({
+    required id,
+    cancelToken,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
@@ -128,9 +140,10 @@ class _UserRestClient implements UserRestClient {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/user/${id}',
               queryParameters: queryParameters,
               data: _data,
+              cancelToken: cancelToken,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<User>.fromJson(
@@ -141,9 +154,13 @@ class _UserRestClient implements UserRestClient {
   }
 
   @override
-  Future<BaseResponse<dynamic>> delete({required id}) async {
+  Future<BaseResponse<dynamic>> delete({
+    required id,
+    cancelToken,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -154,9 +171,10 @@ class _UserRestClient implements UserRestClient {
     )
             .compose(
               _dio.options,
-              '/${id}',
+              '/user/${id}',
               queryParameters: queryParameters,
               data: _data,
+              cancelToken: cancelToken,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<dynamic>.fromJson(

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'login_response.dart';
 
@@ -33,46 +33,50 @@ mixin _$LoginResponse {
 abstract class $LoginResponseCopyWith<$Res> {
   factory $LoginResponseCopyWith(
           LoginResponse value, $Res Function(LoginResponse) then) =
-      _$LoginResponseCopyWithImpl<$Res>;
+      _$LoginResponseCopyWithImpl<$Res, LoginResponse>;
+  @useResult
   $Res call({User? user, String? token});
 
   $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
-class _$LoginResponseCopyWithImpl<$Res>
+class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
     implements $LoginResponseCopyWith<$Res> {
   _$LoginResponseCopyWithImpl(this._value, this._then);
 
-  final LoginResponse _value;
   // ignore: unused_field
-  final $Res Function(LoginResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? user = freezed,
     Object? token = freezed,
   }) {
     return _then(_value.copyWith(
-      user: user == freezed
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
-      token: token == freezed
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $UserCopyWith<$Res>? get user {
     if (_value.user == null) {
       return null;
     }
 
     return $UserCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value));
+      return _then(_value.copyWith(user: value) as $Val);
     });
   }
 }
@@ -84,6 +88,7 @@ abstract class _$$_LoginResponseCopyWith<$Res>
           _$_LoginResponse value, $Res Function(_$_LoginResponse) then) =
       __$$_LoginResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({User? user, String? token});
 
   @override
@@ -92,26 +97,24 @@ abstract class _$$_LoginResponseCopyWith<$Res>
 
 /// @nodoc
 class __$$_LoginResponseCopyWithImpl<$Res>
-    extends _$LoginResponseCopyWithImpl<$Res>
+    extends _$LoginResponseCopyWithImpl<$Res, _$_LoginResponse>
     implements _$$_LoginResponseCopyWith<$Res> {
   __$$_LoginResponseCopyWithImpl(
       _$_LoginResponse _value, $Res Function(_$_LoginResponse) _then)
-      : super(_value, (v) => _then(v as _$_LoginResponse));
+      : super(_value, _then);
 
-  @override
-  _$_LoginResponse get _value => super._value as _$_LoginResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? user = freezed,
     Object? token = freezed,
   }) {
     return _then(_$_LoginResponse(
-      user: user == freezed
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
-      token: token == freezed
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -142,19 +145,17 @@ class _$_LoginResponse implements _LoginResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoginResponse &&
-            const DeepCollectionEquality().equals(other.user, user) &&
-            const DeepCollectionEquality().equals(other.token, token));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(user),
-      const DeepCollectionEquality().hash(token));
+  int get hashCode => Object.hash(runtimeType, user, token);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LoginResponseCopyWith<_$_LoginResponse> get copyWith =>
       __$$_LoginResponseCopyWithImpl<_$_LoginResponse>(this, _$identity);
 

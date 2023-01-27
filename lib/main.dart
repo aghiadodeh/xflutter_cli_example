@@ -1,7 +1,5 @@
-import 'network/config/http_config.dart';
-import 'config/ui_config.dart';
-import 'ui/core/events/bus_events.dart';
 import 'router/app_router.dart';
+import 'network/config/http_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:io';
 import 'config/http_overrides.dart';
@@ -11,12 +9,15 @@ import 'controllers/theme_controller.dart';
 import 'ui/resources/themes/themes_night.dart';
 import 'ui/resources/themes/themes.dart';
 import 'storage/storage.dart';
+import 'config/ui_config.dart';
+import 'events/bus_events.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   HttpOverrides.global = AppHttpOverrides();
+
   await AppStorage.storageConfig();
   ThemeController().init();
   await httpConfig();
@@ -41,9 +42,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    uiConfig();
-
     calcFlexSize(context);
+    uiConfig();
 
     // change Material-App current theme
     eventBus.on<ThemeChangedEvent>().listen((_) => setState(() {}));
@@ -70,13 +70,13 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         routerDelegate: appRouter.delegate(),
         routeInformationParser: appRouter.defaultRouteParser(),
+        debugShowCheckedModeBanner: false,
         themeMode: findInstance<ThemeController>().themeMode.value,
         theme: lightTheme,
         darkTheme: darkTheme,
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        debugShowCheckedModeBanner: false,
       ),
     );
   }

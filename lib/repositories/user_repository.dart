@@ -15,33 +15,43 @@ class UserRepository extends BaseRepository {
   final _userRestClient = Lazy<UserRestClient>(() => UserRestClient(GetIt.I.get<Dio>()));
   UserRestClient get userRestClient => _userRestClient.value;
 
-  Future<BaseResponse<User>> create(User user) async {
-    return getResponse(() async {
-      return userRestClient.create(user: user).onError((error, _) => catchError<User>(error));
-    });
+  Future<BaseResponse<User>> create(User user) {
+    final cancelToken = CancelToken();
+    return getResponse(
+      () => userRestClient.create(user: user,  cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      cancelToken: cancelToken,
+    );
   }
 
-  Future<BaseResponse<User>> update(String id, User user) async {
-    return getResponse(() async {
-      return userRestClient.update(id: id, user: user).onError((error, _) => catchError<User>(error));
-    });
+  Future<BaseResponse<User>> update(String id, User user) {
+    final cancelToken = CancelToken();
+    return getResponse(
+      () => userRestClient.update(id: id, user: user, cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      cancelToken: cancelToken,
+    );
   }
 
-  Future<BaseResponse<List<User>>> findAll(int page, {String? query}) async {
-    return getResponse(() async {
-      return userRestClient.findAll(page: page, query: query).onError((error, _) => catchError<List<User>>(error));
-    });
+  Future<BaseResponse<List<User>>> findAll(int page, {String? query}) {
+    final cancelToken = CancelToken();
+    return getResponse(
+      () => userRestClient.findAll(page: page, query: query, cancelToken: cancelToken).onError((error, _) => catchError<List<User>>(error)),
+      cancelToken: cancelToken,
+    );
   }
 
-  Future<BaseResponse<User>> findOne(String id) async {
-    return getResponse(() async {
-      return userRestClient.findOne(id: id).onError((error, _) => catchError<User>(error));
-    });
+  Future<BaseResponse<User>> findOne(String id) {
+    final cancelToken = CancelToken();
+    return getResponse(
+      () => userRestClient.findOne(id: id, cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      cancelToken: cancelToken,
+    );
   }
 
-  Future<BaseResponse<dynamic>> delete(String id) async {
-    return getResponse(() async {
-      return userRestClient.delete(id: id).onError((error, _) => catchError<dynamic>(error));
-    });
+  Future<BaseResponse<dynamic>> delete(String id) {
+    final cancelToken = CancelToken();
+    return getResponse(
+      () => userRestClient.delete(id: id, cancelToken: cancelToken).onError((error, _) => catchError<dynamic>(error)),
+      cancelToken: cancelToken,
+    );
   }
 }

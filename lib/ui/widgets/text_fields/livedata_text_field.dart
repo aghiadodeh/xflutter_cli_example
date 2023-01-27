@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:formz/formz.dart';
-import 'package:xflutter_cli_example/extensions/formz_extensions.dart';
+import 'package:xflutter_cli_example/extensions/formz_extension.dart';
 import 'customized_text_form_field.dart';
 
 class LiveDataTextField<T extends FormzInput> extends StatefulWidget {

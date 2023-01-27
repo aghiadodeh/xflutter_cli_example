@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/config/instance_config.dart';
 import 'package:xflutter_cli_example/viewmodels/base_viewmodel.dart';
+import 'package:xflutter_cli_example/models/ui_models/ui_message.dart';
 import 'instance_builder.dart';
+import '../snackbar.dart';
 
 /// Create a global instance when widget state initialized,
 /// and remove the instance when widget destroyed.
@@ -44,6 +46,7 @@ mixin InstanceState<T extends StatefulWidget, VM extends BaseViewModel> on State
   @override
   FutureOr<void> registerObservers() {
     observeLiveData(this, instance);
+    instance.baseParams.uiMessage.observe(this, _handleUiMessage);
   }
 
   @override
@@ -52,6 +55,29 @@ mixin InstanceState<T extends StatefulWidget, VM extends BaseViewModel> on State
     instance.onDispose();
     destroyInstance<VM>(instanceName: instanceName);
     super.dispose();
+  }
+
+  /// handle uiMessage
+  void _handleUiMessage(UiMessage uiMessage) {
+    if (uiMessage.message != null) {
+      Color? backgroundColor;
+      switch (uiMessage.state) {
+        case UiMessageState.success:
+          backgroundColor = Colors.green;
+          break;
+        case UiMessageState.error:
+          backgroundColor = Colors.red;
+          break;
+        default:
+          break;
+      }
+      showSnackBar(
+        context: context,
+        message: uiMessage.message!,
+        backgroundColor: backgroundColor,
+      );
+      uiMessage.message = null;
+    }
   }
 
   /// callback which wrap your widgets

@@ -12,3 +12,4 @@ targets:
           field_rename: snake
           ignore_unannotated: false
           include_if_null: true
+          generic_argument_factories: true

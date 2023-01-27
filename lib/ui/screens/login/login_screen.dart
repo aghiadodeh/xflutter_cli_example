@@ -7,7 +7,6 @@ import 'package:xflutter_cli_example/router/app_router.dart';
 import "package:xflutter_cli_example/ui/widgets/instance/instance_state.dart";
 import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
-import 'package:xflutter_cli_example/ui/widgets/snackbar.dart';
 import 'package:xflutter_cli_example/ui/core/responsive/screen_type_layout.dart';
 import 'mobile/login_mobile_screen.dart';
 import 'tablet/login_tablet_screen.dart';
@@ -25,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScree
   void observeLiveData(lifeCycle, viewModel) {
     // navigate to [HomeScreen] when login success
     viewModel.params.result.observe(lifeCycle, (value) {
+      print("object: $value");
       if (value) appRouter.replace(const Home());
     });
   }
@@ -42,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScree
           },
         ),
         LoadingListenerWidget(loading: viewModel.baseParams.loading),
-        SnackBarMessageListener(uiMessage: viewModel.baseParams.uiMessage),
       ],
     );
   }

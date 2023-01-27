@@ -5,8 +5,9 @@
 /// state management for UI
 ///
 /// store and manage your liveData in [LoginParams].
-import 'package:xflutter_cli_example/models/data/user/user.dart';
-import 'package:xflutter_cli_example/network/authentication_manager.dart';
+import 'package:xflutter_cli_example/controllers/auth_controller.dart';
+import 'package:xflutter_cli_example/models/data_models.dart';
+import 'package:xflutter_cli_example/models/responses/base_response/base_response.dart';
 import 'package:xflutter_cli_example/network/config/logger.dart';
 
 import "login_params.dart";
@@ -20,18 +21,6 @@ import 'package:xflutter_cli_example/models/forms/formz_password.dart';
 class LoginViewModel extends BaseViewModel {
   final _params = Lazy(() => LoginParams());
   LoginParams get params => _params.value;
-
-  /// update [LoginParams] some [FormzEmail] variable.
-  void formzEmailChanged(MutableLiveData<FormzEmail> attr, String value) {
-    final newValue = FormzEmail.dirty(value);
-    attr.postValue(newValue);
-  }
-
-  /// update [LoginParams] some [FormzPassword] variable.
-  void formzPasswordChanged(MutableLiveData<FormzPassword> attr, String value) {
-    final newValue = FormzPassword.dirty(value);
-    attr.postValue(newValue);
-  }
 
   @override
   void onInit() {
@@ -51,16 +40,37 @@ class LoginViewModel extends BaseViewModel {
     logger("Disposed", name: "LoginViewModel");
   }
 
+  /// update [LoginParams] some [FormzEmail] variable.
+  void formzEmailChanged(MutableLiveData<FormzEmail> attr, String value) {
+    final newValue = FormzEmail.dirty(value);
+    attr.postValue(newValue);
+  }
+
+  /// update [LoginParams] some [FormzPassword] variable.
+  void formzPasswordChanged(MutableLiveData<FormzPassword> attr, String value) {
+    final newValue = FormzPassword.dirty(value);
+    attr.postValue(newValue);
+  }
+
   /// submit [LoginParams.mail] & [LoginParams.password] to server
   void login() {
-    callHttpRequest(() async {
-      // send request to server
-      // ...
+    callHttpRequest<User>(
+      () async {
+        // send request to server
+        // ...
 
-      // handle response
-      await Future.delayed(const Duration(milliseconds: 2000));
-      await AuthenticationManager.login(const User(id: "1", name: "Aghiad Odeh"));
-      params.result.postValue(true);
-    });
+        // handle response
+        const user = User(id: "1", name: "Aghiad Odeh");
+        await Future.delayed(const Duration(milliseconds: 2000));
+        return const BaseResponse(success: true, data: user);
+      },
+      loading: baseParams.loading,
+      callback: (result) async {
+        if (result != null) {
+          await AuthController.login(result);
+          params.result.postValue(true);
+        }
+      },
+    );
   }
 }

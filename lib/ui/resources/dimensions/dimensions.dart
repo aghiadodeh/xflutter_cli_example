@@ -6,7 +6,7 @@
 const double halfUnit = 4;
 const double unit = 8;
 const double unitAndHalf = 12;
-const double towUnits = 16;
+const double twoUnits = 16;
 const double threeUnits = 24;
 const double fourUnits = 32;
 
@@ -18,7 +18,7 @@ const double mediumText = 18;
 const double largeText = 24;
 const double veryLargeText = 32;
 
-/// customized dimens
+/// customized dimensions
 const double buttonCorner = 24.0;
 const double buttonPadding = 16.0;
 const double textFormFieldRadius = 6.0;

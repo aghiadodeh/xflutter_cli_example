@@ -13,6 +13,9 @@ import '../animations/customized_animated_widget.dart';
 /// [VM] a view model extends [PaginationViewModel]
 /// [T] the Model of item
 class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> extends StatelessWidget {
+  /// [viewModel] a class extends [PaginationViewModel]
+  final VM viewModel;
+
   /// [itemBuilder] callback return [Widget] with item [T].
   final Widget Function(T) itemBuilder;
 
@@ -29,7 +32,7 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
   final Function()? retry;
 
   /// warp [ScrollView] in [RefreshIndicator] when [refreshIndicator] == `true`
-  /// 
+  ///
   /// default value is `true`
   final bool refreshIndicator;
 
@@ -41,6 +44,7 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
 
   /// build [AnimatedInfiniteScrollView] with basic configuration
   const InfiniteScrollView({
+    required this.viewModel,
     required this.itemBuilder,
     this.refreshIndicator = true,
     this.onRefresh,
@@ -55,7 +59,7 @@ class InfiniteScrollView<VM extends PaginationViewModel<T>, T extends Object> ex
   @override
   Widget build(BuildContext context) {
     return AnimatedInfiniteScrollView<T>(
-      viewModel: findInstance<VM>(),
+      viewModel: viewModel,
       refreshIndicator: refreshIndicator,
       topWidget: topWidget,
       loadingWidget: const CustomizedAnimatedWidget(child: Loader()),

@@ -35,7 +35,7 @@ class _AppTextButtonState extends State<AppTextButton> {
       duration: const Duration(milliseconds: 150),
       child: TextButton(
         child: Text(widget.text, style: buttonTextStyle),
-        onPressed: () async {
+        onPressed: () {
           if (!widget.enabled) return;
           globalKey.currentState?.animate(callback: widget.callback);
         },

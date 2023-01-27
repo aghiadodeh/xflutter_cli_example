@@ -2,7 +2,7 @@
 /// 
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'package:flutter/material.dart';
-import 'package:xflutter_cli_example/extensions/theme_extensions.dart';
+import 'package:xflutter_cli_example/extensions/theme_extension.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/theme_widget.dart';
 import 'package:xflutter_cli_example/ui/resources/themes/themes.dart';
 import '../animations/scale_fade_widget.dart';
@@ -40,7 +40,8 @@ class _CustomizedButtonState extends State<CustomizedButton> {
             onPressed: () async {
               if (!widget.enabled) return;
               globalKey.currentState?.animate();
-              childKey.currentState?.animate(callback: widget.callback);
+              childKey.currentState?.animate();
+              Future.delayed(const Duration(milliseconds: 300), widget.callback);
             },
             style: (widget.style ?? elevatedButtonTheme(darkMode: theme.isDark()).style)?.copyWith(
               overlayColor: MaterialStateProperty.all(Colors.transparent),

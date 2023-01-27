@@ -4,6 +4,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'logging_interceptor.dart';
+import 'env.dart';
 
 /// Config Http Options
 Future<void> httpConfig() async {
@@ -28,6 +29,7 @@ _httpClientConfig() {
           request.headers.addAll(headers);
           request.connectTimeout = 30000;
           request.receiveTimeout = 30000;
+          request.baseUrl = Env.apiUrl;
           handler.next(request);
         },
         onError: (error, handler) async {
