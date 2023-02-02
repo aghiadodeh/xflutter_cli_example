@@ -16,9 +16,9 @@ class LoginParams {
   /// notify ui that login response handled
   final result = false.liveData;
 
-  /// Login password
-  final password = const FormzPassword.pure().liveData;
-
   /// Login mail
   final mail = const FormzEmail.pure().liveData;
+
+  /// Login password
+  final password = const FormzPassword.pure().liveData;
 }

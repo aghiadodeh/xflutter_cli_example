@@ -12,8 +12,8 @@ class FlexTextStyle extends TextStyle {
   const FlexTextStyle({this.textSize, this.flexFontWeight});
 
   @override
-  double? get fontSize => textSize?.value ?? fontSize;
+  double? get fontSize => textSize?.value ?? super.fontSize;
 
   @override
-  FontWeight? get fontWeight => flexFontWeight?.value ?? fontWeight;
+  FontWeight? get fontWeight => flexFontWeight?.value ?? super.fontWeight;
 }

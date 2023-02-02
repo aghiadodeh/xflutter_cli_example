@@ -93,7 +93,7 @@ class _BaseBottomSheetDialog extends StatelessWidget {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: theme.backgroundColor,
+                              color: theme.scaffoldBackgroundColor,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(bottomSheetRadius),
                                 topRight: Radius.circular(bottomSheetRadius),

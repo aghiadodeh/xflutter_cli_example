@@ -10,7 +10,7 @@ extension LiveDataUtils<T> on LiveData<T> {
   ObserverWrapper<T> debounce(void Function(T) callback, {Duration duration = const Duration(milliseconds: 500)}) {
     final debouncer = Debouncer(delay: duration);
     void onChange(value) => debouncer(() => callback(value));
-    ObserverWrapper<T>? observerWrapper = ObserverWrapper<T>(this, onChange, Dispatcher.postFrame);
+    ObserverWrapper<T>? observerWrapper = ObserverWrapper<T>(onChange, Dispatcher.postFrame);
     addObserverWrapper(observerWrapper);
     return observerWrapper;
   }
@@ -18,11 +18,11 @@ extension LiveDataUtils<T> on LiveData<T> {
 
 extension Utils<T> on T {
   /// create new [MutableLiveData] instance with initialValue from passed variable value
-  MutableLiveData<T> get liveData => MutableLiveData<T>(initialValue: this);
+  MutableLiveData<T> get liveData => MutableLiveData<T>(value: this);
 
   /// create new [LiveResult] instance with initialValue [ResultState.idle]
-  LiveResult<T> get liveResult => LiveResult(initialState: ResultState.idle);
+  LiveResult<T> get liveResult => LiveResult();
 
-  /// create new [MutableMediatorLiveData] instance with initialValue from passed variable value
-  MutableMediatorLiveData<T> get mediatorLiveData => MutableMediatorLiveData<T>(initialValue: this);
+  /// create new [MediatorMutableLiveData] instance with initialValue from passed variable value
+  MediatorMutableLiveData<T> get mediatorLiveData => MediatorMutableLiveData<T>(value: this);
 }

@@ -12,15 +12,11 @@ class HomeMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InstanceBuilder<HomeViewModel>(
-      builder: (viewModel) {
-        return ThemeWidget(
-          builder: (context, theme) {
-            return const Center(
-              child: Text("Mobile Home"),
-            );
-          },
-        );
-      },
+      builder: (viewModel) => ThemeWidget(
+        builder: (context, theme) => const Center(
+          child: Text("Mobile Home"),
+        ),
+      ),
     );
   }
 }

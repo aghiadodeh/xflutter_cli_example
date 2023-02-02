@@ -1,5 +1,4 @@
 import 'router/app_router.dart';
-import 'network/config/http_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:io';
 import 'config/http_overrides.dart';
@@ -20,7 +19,6 @@ void main() async {
 
   await AppStorage.storageConfig();
   ThemeController().init();
-  await httpConfig();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US')],
@@ -50,7 +48,6 @@ class _MyAppState extends State<MyApp> {
 
     // hide soft keyboard when (non-context class) emit event
     eventBus.on<SoftKeyboardEvent>().listen((_) => hideSoftKeyboard(context));
-
     _handleUnauthorizedEvent();
   }
 

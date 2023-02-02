@@ -15,7 +15,6 @@ final ThemeData darkTheme = ThemeData(
   primaryColor: DesignColorsDark.primaryColor,
   dividerColor: const Color(0xFF6D6A69),
   disabledColor: const Color(0XFFbfbfbf),
-  backgroundColor: const Color.fromARGB(255, 20, 20, 20),
   scaffoldBackgroundColor: DesignColorsDark.secondaryBackgroundColor,
   colorScheme: const ColorScheme(
     primary: DesignColorsDark.primaryColor,

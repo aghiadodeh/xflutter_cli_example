@@ -6,14 +6,13 @@
 ///
 /// store and manage your liveData in [LoginParams].
 import 'package:xflutter_cli_example/controllers/auth_controller.dart';
+import 'package:xflutter_cli_example/events/bus_events.dart';
 import 'package:xflutter_cli_example/models/data_models.dart';
 import 'package:xflutter_cli_example/models/responses/base_response/base_response.dart';
 import 'package:xflutter_cli_example/network/config/logger.dart';
-
 import "login_params.dart";
 import 'package:lazy_evaluation/lazy_evaluation.dart';
 import 'package:xflutter_cli_example/viewmodels/base_viewmodel.dart';
-
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import 'package:xflutter_cli_example/models/forms/formz_email.dart';
 import 'package:xflutter_cli_example/models/forms/formz_password.dart';
@@ -56,6 +55,7 @@ class LoginViewModel extends BaseViewModel {
   void login() {
     callHttpRequest<User>(
       () async {
+        eventBus.fire(const SoftKeyboardEvent());
         // send request to server
         // ...
 

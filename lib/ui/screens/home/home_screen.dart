@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterx_live_data/flutterx_live_data.dart';
 import "package:xflutter_cli_example/ui/widgets/instance/instance_state.dart";
 import "./viewmodels/home_viewmodel.dart";
-import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/core/responsive/screen_type_layout.dart';
 import 'mobile/home_mobile_screen.dart';
 import 'tablet/home_tablet_screen.dart';
@@ -18,21 +17,19 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with InstanceState<HomeScreen, HomeViewModel>, StateObserver {
+class _HomeScreenState extends State<HomeScreen> with InstanceState<HomeScreen, HomeViewModel>, ObserverMixin {
   @override
-  void observeLiveData(lifeCycle, viewModel) {
+  void observeLiveData(observer, viewModel) {
     // register observers...
   }
 
   @override
   Widget screen(BuildContext context, viewModel) {
     return BaseScaffold(
-      builder: (context, theme) {
-        return const ScreenTypeLayout(
-          mobile: HomeMobileScreen(),
-          tablet: HomeTabletScreen(),
-        );
-      },
+      builder: (context, theme) => const ScreenTypeLayout(
+        mobile: HomeMobileScreen(),
+        tablet: HomeTabletScreen(),
+      ),
     );
   }
 

@@ -19,12 +19,11 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScreen, LoginViewModel>, StateObserver {
+class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScreen, LoginViewModel>, ObserverMixin {
   @override
-  void observeLiveData(lifeCycle, viewModel) {
+  void observeLiveData(observer, viewModel) {
     // navigate to [HomeScreen] when login success
-    viewModel.params.result.observe(lifeCycle, (value) {
-      print("object: $value");
+    viewModel.params.result.observe(observer, (value) {
       if (value) appRouter.replace(const Home());
     });
   }

@@ -51,7 +51,7 @@ class LiveDataTextField<T extends FormzInput> extends StatefulWidget {
   State<LiveDataTextField<T>> createState() => _LiveDataTextFieldState<T>();
 }
 
-class _LiveDataTextFieldState<T extends FormzInput> extends State<LiveDataTextField<T>> with StateObserver {
+class _LiveDataTextFieldState<T extends FormzInput> extends State<LiveDataTextField<T>> with ObserverMixin {
   final key = DateTime.now().toString();
   final TextEditingController textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -65,6 +65,13 @@ class _LiveDataTextFieldState<T extends FormzInput> extends State<LiveDataTextFi
       textController.text = widget.liveData.inputValue();
     }
     super.initState();
+    doRegister();
+  }
+
+  @override
+  void dispose() {
+    doUnregister();
+    super.dispose();
   }
 
   @override
