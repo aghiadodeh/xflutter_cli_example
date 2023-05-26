@@ -2,7 +2,6 @@ import 'router/app_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:io';
 import 'config/http_overrides.dart';
-import 'ui/core/flex/flex_utils.dart';
 import 'config/instance_config.dart';
 import 'controllers/theme_controller.dart';
 import 'ui/resources/themes/themes_night.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await EasyLocalization.ensureInitialized();
   HttpOverrides.global = AppHttpOverrides();
 
@@ -40,22 +40,23 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    calcFlexSize(context);
-    uiConfig();
+
+    // set application on-launch UI configuration
+    WidgetsBinding.instance.addPostFrameCallback((_) => uiConfig(context));
 
     // change Material-App current theme
     eventBus.on<ThemeChangedEvent>().listen((_) => setState(() {}));
 
     // hide soft keyboard when (non-context class) emit event
     eventBus.on<SoftKeyboardEvent>().listen((_) => hideSoftKeyboard(context));
-    _handleUnauthorizedEvent();
+
+    // handle unauthorizedEvent
+    eventBus.on<UnauthorizedEvent>().listen((_) => _handleUnauthorizedEvent());
   }
 
   /// logOut
-  _handleUnauthorizedEvent() {
-    eventBus.on<UnauthorizedEvent>().listen((event) async {
-      // TODO: handle Unauthorized Event
-    });
+  void _handleUnauthorizedEvent() async {
+    // TODO: handle UnauthorizedEvent
   }
 
   // This widget is the root of your application.
@@ -67,13 +68,13 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         routerDelegate: appRouter.delegate(),
         routeInformationParser: appRouter.defaultRouteParser(),
-        debugShowCheckedModeBanner: false,
         themeMode: findInstance<ThemeController>().themeMode.value,
         theme: lightTheme,
         darkTheme: darkTheme,
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

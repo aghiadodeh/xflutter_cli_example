@@ -79,7 +79,7 @@ class _LiveDataTextFieldState<T extends FormzInput> extends State<LiveDataTextFi
     return LiveDataBuilder<T>(
       data: widget.liveData,
       builder: (context, textInput) {
-        if (textInput.value.toString().isEmpty) {
+        if (textInput.value.toString().isEmpty && !focusNode.hasFocus) {
           // when clear params -> clear the textField
           textController.text = "";
         }

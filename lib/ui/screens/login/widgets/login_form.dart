@@ -22,48 +22,50 @@ class LoginForm extends StatelessWidget {
       builder: (viewModel) {
         return ThemeWidget(
           builder: (context, theme) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    ///// Login Mail /////
-                    LiveDataTextField<FormzEmail>(
-                      label: 'mail',
-                      liveData: viewModel.params.mail,
-                      onTextChanged: viewModel.formzEmailChanged,
-                      errorText: () => viewModel.params.mail.value.error?.message,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: formSpacing),
-
-                    ///// Login Password /////
-                    LiveDataTextField<FormzPassword>(
-                      label: 'password',
-                      liveData: viewModel.params.password,
-                      onTextChanged: viewModel.formzPasswordChanged,
-                      errorText: () => viewModel.params.password.value.error?.message,
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: formSpacing),
-                  ],
-                ),
-
-                ///// Form Submit /////
-                LiveDataBuilder<bool>(
-                  data: viewModel.baseParams.loading,
-                  builder: (context, boolean) {
-                    return SizedBox(
-                      width: double.infinity,
-                      child: CustomizedButton(
-                        enabled: !boolean,
-                        callback: viewModel.login,
-                        child: const Text("Submit"),
+            return Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      ///// Login Mail /////
+                      LiveDataTextField<FormzEmail>(
+                        label: 'mail',
+                        liveData: viewModel.params.mail,
+                        onTextChanged: viewModel.formzEmailChanged,
+                        errorText: () => viewModel.params.mail.value.error?.message,
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                    );
-                  },
-                ),
-              ],
+                      const SizedBox(height: formSpacing),
+
+                      ///// Login Password /////
+                      LiveDataTextField<FormzPassword>(
+                        label: 'password',
+                        liveData: viewModel.params.password,
+                        onTextChanged: viewModel.formzPasswordChanged,
+                        errorText: () => viewModel.params.password.value.error?.message,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: formSpacing),
+                    ],
+                  ),
+
+                  ///// Form Submit /////
+                  LiveDataBuilder<bool>(
+                    data: viewModel.baseParams.loading,
+                    builder: (context, boolean) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: CustomizedButton(
+                          enabled: !boolean,
+                          callback: viewModel.login,
+                          child: const Text("Submit"),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             );
           },
         );

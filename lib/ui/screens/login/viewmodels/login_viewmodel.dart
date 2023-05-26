@@ -35,8 +35,8 @@ class LoginViewModel extends BaseViewModel {
 
   @override
   void onDispose() {
-    super.onDispose();
     logger("Disposed", name: "LoginViewModel");
+    super.onDispose();
   }
 
   /// update [LoginParams] some [FormzEmail] variable.
@@ -65,7 +65,7 @@ class LoginViewModel extends BaseViewModel {
         return const BaseResponse(success: true, data: user);
       },
       loading: baseParams.loading,
-      callback: (result) async {
+      callback: (result, success) async {
         if (result != null) {
           await AuthController.login(result);
           params.result.postValue(true);

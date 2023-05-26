@@ -42,19 +42,19 @@ class ScaleFadeWidgetState extends State<ScaleFadeWidget> with SingleTickerProvi
         }
       })
       ..addListener(() {
-        setState(() {});
+        if (mounted) setState(() {});
       });
     super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   void animate({Function()? callback}) {
-    _controller?.forward().then((value) => callback?.call());
+    _controller?.forward().whenCompleteOrCancel(() => callback?.call());
   }
 
   @override

@@ -27,6 +27,10 @@ mixin InstanceState<T extends StatefulWidget, VM extends BaseViewModel> on State
   /// callback when widget initialized.
   void onInitState(VM instance) {}
 
+  /// Called 1 frame after onInit(). It is the perfect place to enter
+  /// navigation, events, like snackBar, dialogs, or a new route
+  void onReady(VM instance) {}
+
   /// callback when widget destroyed.
   void onDispose() {}
 
@@ -41,7 +45,10 @@ mixin InstanceState<T extends StatefulWidget, VM extends BaseViewModel> on State
     instance.onInit();
     super.initState();
     doRegister();
-    WidgetsBinding.instance.addPostFrameCallback((_) => instance.onReady());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onReady(instance);
+      instance.onReady();
+    });
   }
 
   @override

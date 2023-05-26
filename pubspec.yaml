@@ -1,5 +1,5 @@
 name: xflutter_cli_example
-description: A new Flutter project.
+description: XFlutter CLI Project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,45 +28,35 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  auto_route: ^5.0.0
   dio: ^4.0.4
   flutter_secure_storage: ^5.0.2
   retrofit: ^3.3.1
+  auto_route: ^7.1.0
   json_annotation: ^4.7.0
   json_serializable: ^6.4.1
   freezed_annotation: ^2.1.0
-  animated_infinite_scroll_pagination: ^0.1.7
   formz: ^0.4.1
   flutter_spinkit: ^5.1.0
   lazy_evaluation: ^1.1.0
   connectivity_plus: ^2.3.0
   easy_localization: ^3.0.1
-  flutterx_live_data: ^1.8.0
+  flutterx_live_data: ^1.8.6
   animations: ^2.0.3
   get_it: ^7.2.0
   shared_preferences: ^2.0.15
   event_bus: ^2.0.0
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  animated_infinite_scroll_pagination: ^0.2.7
 
 dev_dependencies:
-  auto_route_generator: ^5.0.0
   retrofit_generator: ^4.2.0
+  auto_route_generator: ^7.1.0
   build_runner: ^2.2.1
   freezed: ^2.1.0+1
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the

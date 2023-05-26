@@ -24,3 +24,4 @@ const double buttonPadding = 16.0;
 const double textFormFieldRadius = 6.0;
 const double bottomSheetRadius = 36.0;
 const double formSpacing = 12.0;
+const double layoutPadding = 16.0;

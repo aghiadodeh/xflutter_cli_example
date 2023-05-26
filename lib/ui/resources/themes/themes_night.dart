@@ -9,6 +9,7 @@ import '../colors/colors.dart';
 /// -------------- App Dark Theme -------------- ///
 final ThemeData darkTheme = ThemeData(
   // Define the default brightness and colors.
+  useMaterial3: true,
   fontFamily: fontFamily,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   brightness: Brightness.dark,

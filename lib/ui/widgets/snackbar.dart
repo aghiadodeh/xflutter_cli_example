@@ -15,11 +15,10 @@ void showSnackBar({
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text(message, style: textStyle),
+        content: Text(message, style: textStyle ?? const TextStyle(color: Colors.white)),
         backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.onSurface,
         action: SnackBarAction(
           label: action ?? "Ok",
-          textColor: Theme.of(context).backgroundColor,
           onPressed: () {
             callback?.call();
           },

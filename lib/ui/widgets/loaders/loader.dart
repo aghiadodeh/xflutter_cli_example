@@ -13,7 +13,7 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SpinKitCircle(
       color: color ?? Theme.of(context).primaryColor,
-      size: size ?? MediaQuery.of(context).size.width * 0.2,
+      size: size ?? MediaQuery.of(context).size.width * 0.15,
     );
   }
 }

@@ -36,7 +36,7 @@ class _CustomizedButtonState extends State<CustomizedButton> {
           type: AnimationType.scale,
           scaleValue: 0.015,
           duration: const Duration(milliseconds: 200),
-          child: ElevatedButton(
+          child: FilledButton(
             onPressed: () async {
               if (!widget.enabled) return;
               globalKey.currentState?.animate();

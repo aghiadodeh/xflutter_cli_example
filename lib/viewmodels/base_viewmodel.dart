@@ -23,7 +23,7 @@ abstract class BaseViewModel extends LifeCycle {
   Future<void> callHttpRequest<X>(
     Future<BaseResponse<X>> Function() request, {
     MutableLiveData<bool>? loading,
-    Function(X? result)? callback,
+    Function(X? result, bool success)? callback,
   }) async {
     // check if connecting to internet
     bool isOnline = await isConnectingToInternet();
@@ -35,17 +35,17 @@ abstract class BaseViewModel extends LifeCycle {
       final response = await request.call();
       if (response.success == true) {
         // success response
-        callback?.call(response.data);
+        callback?.call(response.data, true);
       } else {
         // error response
         baseParams.uiMessage.postValue(UiMessage(message: response.message, state: UiMessageState.error));
-        callback?.call(null);
+        callback?.call(null, false);
       }
       loading?.postValue(false);
     } else {
       // notify error message
       baseParams.uiMessage.postValue(UiMessage(message: "check_internet_connection", state: UiMessageState.error));
-      callback?.call(null);
+      callback?.call(null, false);
     }
   }
 }
@@ -56,7 +56,7 @@ abstract class LifeCycle {
   void onInit() {}
 
   /// Called 1 frame after onInit(). It is the perfect place to enter
-  /// navigation events, like snackBar, dialogs, or a new route
+  /// navigation, events, like snackBar, dialogs, or a new route
   void onReady() {}
 
   /// Called immediately before the widget is disposed

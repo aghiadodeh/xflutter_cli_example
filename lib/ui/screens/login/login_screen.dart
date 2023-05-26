@@ -9,9 +9,13 @@ import "./viewmodels/login_viewmodel.dart";
 import 'package:xflutter_cli_example/ui/widgets/loaders/live_data_loader.dart';
 import 'package:xflutter_cli_example/ui/core/responsive/screen_type_layout.dart';
 import 'mobile/login_mobile_screen.dart';
+
 import 'tablet/login_tablet_screen.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/base_scaffold.dart';
 
+import "package:auto_route/auto_route.dart";
+
+@RoutePage(name: "login")
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -29,16 +33,16 @@ class _LoginScreenState extends State<LoginScreen> with InstanceState<LoginScree
   }
 
   @override
-  Widget screen(BuildContext context, viewModel) {
+  Widget screen(context, viewModel) {
     return Stack(
       children: [
         BaseScaffold(
-          builder: (context, theme) {
-            return const ScreenTypeLayout(
+          builder: (context, theme) => const SafeArea(
+            child: ScreenTypeLayout(
               mobile: LoginMobileScreen(),
               tablet: LoginTabletScreen(),
-            );
-          },
+            ),
+          ),
         ),
         LoadingListenerWidget(loading: viewModel.baseParams.loading),
       ],

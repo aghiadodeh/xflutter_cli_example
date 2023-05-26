@@ -6,7 +6,6 @@ import 'package:xflutter_cli_example/ui/core/layouts/base_scaffold.dart';
 import 'package:xflutter_cli_example/ui/core/layouts/base_scroll_view.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
 import 'package:xflutter_cli_example/ui/widgets/animations/customized_animated_widget.dart';
-
 class BaseBottomSheetDialog {
   static Future<void> showDialog({
     required BuildContext context,
@@ -25,10 +24,7 @@ class BaseBottomSheetDialog {
       barrierColor: barrierColor ?? Colors.black.withOpacity(0.6),
       isDismissible: isDismissible,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(bottomSheetRadius),
-          topRight: Radius.circular(bottomSheetRadius),
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(bottomSheetRadius), topRight: Radius.circular(bottomSheetRadius)),
       ),
       builder: (BuildContext context) {
         return Stack(
@@ -71,7 +67,7 @@ class _BaseBottomSheetDialog extends StatelessWidget {
         return WillPopScope(
           onWillPop: () => Future.value(isDismissible),
           child: Container(
-            padding: EdgeInsets.only(top: MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -109,7 +105,7 @@ class _BaseBottomSheetDialog extends StatelessWidget {
                                   ),
                                 ),
                                 // fix iOS bottom safe area
-                                SizedBox(height: MediaQuery.of(context).padding.bottom),
+                                SizedBox(height: MediaQuery.of(context).viewPadding.bottom),
                               ],
                             ),
                           ),
