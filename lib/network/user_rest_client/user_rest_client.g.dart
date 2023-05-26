@@ -27,8 +27,7 @@ class _UserRestClient implements UserRestClient {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(user.toJson());
+    final _data = user;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
       method: 'POST',
@@ -60,8 +59,7 @@ class _UserRestClient implements UserRestClient {
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(user.toJson());
+    final _data = user;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
       method: 'PUT',
