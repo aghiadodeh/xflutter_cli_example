@@ -5,9 +5,7 @@
 /// state management for UI
 ///
 /// store and manage your liveData in [HomeParams].
-import 'package:flutter/material.dart';
 import 'package:xflutter_cli_example/network/config/logger.dart';
-
 import "home_params.dart";
 import 'package:lazy_evaluation/lazy_evaluation.dart';
 import 'package:xflutter_cli_example/viewmodels/base_viewmodel.dart';
