@@ -24,8 +24,6 @@ mixin _$BaseResponse<T> {
   String? get message => throw _privateConstructorUsedError;
   T? get data => throw _privateConstructorUsedError;
   bool? get success => throw _privateConstructorUsedError;
-  @JsonKey(name: 'status_code')
-  int? get statusCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
       throw _privateConstructorUsedError;
@@ -40,11 +38,7 @@ abstract class $BaseResponseCopyWith<T, $Res> {
           BaseResponse<T> value, $Res Function(BaseResponse<T>) then) =
       _$BaseResponseCopyWithImpl<T, $Res, BaseResponse<T>>;
   @useResult
-  $Res call(
-      {String? message,
-      T? data,
-      bool? success,
-      @JsonKey(name: 'status_code') int? statusCode});
+  $Res call({String? message, T? data, bool? success});
 }
 
 /// @nodoc
@@ -63,7 +57,6 @@ class _$BaseResponseCopyWithImpl<T, $Res, $Val extends BaseResponse<T>>
     Object? message = freezed,
     Object? data = freezed,
     Object? success = freezed,
-    Object? statusCode = freezed,
   }) {
     return _then(_value.copyWith(
       message: freezed == message
@@ -78,10 +71,6 @@ class _$BaseResponseCopyWithImpl<T, $Res, $Val extends BaseResponse<T>>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
-      statusCode: freezed == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -94,11 +83,7 @@ abstract class _$$_BaseResponseCopyWith<T, $Res>
       __$$_BaseResponseCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call(
-      {String? message,
-      T? data,
-      bool? success,
-      @JsonKey(name: 'status_code') int? statusCode});
+  $Res call({String? message, T? data, bool? success});
 }
 
 /// @nodoc
@@ -115,7 +100,6 @@ class __$$_BaseResponseCopyWithImpl<T, $Res>
     Object? message = freezed,
     Object? data = freezed,
     Object? success = freezed,
-    Object? statusCode = freezed,
   }) {
     return _then(_$_BaseResponse<T>(
       message: freezed == message
@@ -130,10 +114,6 @@ class __$$_BaseResponseCopyWithImpl<T, $Res>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
-      statusCode: freezed == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -141,11 +121,7 @@ class __$$_BaseResponseCopyWithImpl<T, $Res>
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 class _$_BaseResponse<T> implements _BaseResponse<T> {
-  const _$_BaseResponse(
-      {this.message,
-      this.data,
-      this.success,
-      @JsonKey(name: 'status_code') this.statusCode});
+  const _$_BaseResponse({this.message, this.data, this.success});
 
   factory _$_BaseResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
@@ -157,13 +133,10 @@ class _$_BaseResponse<T> implements _BaseResponse<T> {
   final T? data;
   @override
   final bool? success;
-  @override
-  @JsonKey(name: 'status_code')
-  final int? statusCode;
 
   @override
   String toString() {
-    return 'BaseResponse<$T>(message: $message, data: $data, success: $success, statusCode: $statusCode)';
+    return 'BaseResponse<$T>(message: $message, data: $data, success: $success)';
   }
 
   @override
@@ -173,15 +146,13 @@ class _$_BaseResponse<T> implements _BaseResponse<T> {
             other is _$_BaseResponse<T> &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode));
+            (identical(other.success, success) || other.success == success));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, message,
-      const DeepCollectionEquality().hash(data), success, statusCode);
+  int get hashCode => Object.hash(
+      runtimeType, message, const DeepCollectionEquality().hash(data), success);
 
   @JsonKey(ignore: true)
   @override
@@ -197,11 +168,9 @@ class _$_BaseResponse<T> implements _BaseResponse<T> {
 
 abstract class _BaseResponse<T> implements BaseResponse<T> {
   const factory _BaseResponse(
-          {final String? message,
-          final T? data,
-          final bool? success,
-          @JsonKey(name: 'status_code') final int? statusCode}) =
-      _$_BaseResponse<T>;
+      {final String? message,
+      final T? data,
+      final bool? success}) = _$_BaseResponse<T>;
 
   factory _BaseResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
@@ -213,9 +182,6 @@ abstract class _BaseResponse<T> implements BaseResponse<T> {
   T? get data;
   @override
   bool? get success;
-  @override
-  @JsonKey(name: 'status_code')
-  int? get statusCode;
   @override
   @JsonKey(ignore: true)
   _$$_BaseResponseCopyWith<T, _$_BaseResponse<T>> get copyWith =>

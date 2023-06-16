@@ -17,9 +17,6 @@ abstract class BaseRepository {
       if (cancelToken != null) cancelTokens.add(cancelToken);
       final response = await request.call();
       if (cancelToken != null) cancelTokens.remove(cancelToken);
-      if (response.statusCode == 401) {
-        // TODO: handle Unauthorized Response
-      }
       return response;
     } else {
       return BaseResponse<T>(

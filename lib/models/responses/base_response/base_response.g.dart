@@ -14,7 +14,6 @@ _$_BaseResponse<T> _$$_BaseResponseFromJson<T>(
       message: json['message'] as String?,
       data: _$nullableGenericFromJson(json['data'], fromJsonT),
       success: json['success'] as bool?,
-      statusCode: json['status_code'] as int?,
     );
 
 Map<String, dynamic> _$$_BaseResponseToJson<T>(
@@ -25,7 +24,6 @@ Map<String, dynamic> _$$_BaseResponseToJson<T>(
       'message': instance.message,
       'data': _$nullableGenericToJson(instance.data, toJsonT),
       'success': instance.success,
-      'status_code': instance.statusCode,
     };
 
 T? _$nullableGenericFromJson<T>(
