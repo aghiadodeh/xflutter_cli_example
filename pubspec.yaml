@@ -28,11 +28,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  image_fade: ^0.6.2
+  fancy_shimmer_image: ^2.0.3
   isar_flutter_libs: ^3.1.0+1
   isar: ^3.1.0+1
-  dio: ^4.0.4
+  dio: ^5.1.2
   flutter_secure_storage: ^5.0.2
-  retrofit: ^3.3.1
+  retrofit: ^4.0.1
   auto_route: ^7.1.0
   json_annotation: ^4.7.0
   json_serializable: ^6.4.1
@@ -54,8 +56,7 @@ dependencies:
   path_provider: ^2.0.15
 
 dev_dependencies:
-  isar_generator: ^3.1.0+1
-  retrofit_generator: ^4.2.0
+  retrofit_generator: ^7.0.1
   auto_route_generator: ^7.1.0
   build_runner: ^2.2.1
   freezed: ^2.1.0+1

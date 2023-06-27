@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository {
   Future<BaseResponse<User>> create(User user) {
     final cancelToken = CancelToken();
     return getResponse(
-      () => userRestClient.create(user: user,  cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      () => userRestClient.create(user: user.toJson(),  cancelToken: cancelToken),
       cancelToken: cancelToken,
     );
   }
@@ -26,7 +26,7 @@ class UserRepository extends BaseRepository {
   Future<BaseResponse<User>> update(String id, User user) {
     final cancelToken = CancelToken();
     return getResponse(
-      () => userRestClient.update(id: id, user: user, cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      () => userRestClient.update(id: id, user: user.toJson(), cancelToken: cancelToken),
       cancelToken: cancelToken,
     );
   }
@@ -34,7 +34,7 @@ class UserRepository extends BaseRepository {
   Future<BaseResponse<List<User>>> findAll(int page, {String? query}) {
     final cancelToken = CancelToken();
     return getResponse(
-      () => userRestClient.findAll(page: page, query: query, cancelToken: cancelToken).onError((error, _) => catchError<List<User>>(error)),
+      () => userRestClient.findAll(page: page, query: query, cancelToken: cancelToken),
       cancelToken: cancelToken,
     );
   }
@@ -42,7 +42,7 @@ class UserRepository extends BaseRepository {
   Future<BaseResponse<User>> findOne(String id) {
     final cancelToken = CancelToken();
     return getResponse(
-      () => userRestClient.findOne(id: id, cancelToken: cancelToken).onError((error, _) => catchError<User>(error)),
+      () => userRestClient.findOne(id: id, cancelToken: cancelToken),
       cancelToken: cancelToken,
     );
   }
@@ -50,7 +50,7 @@ class UserRepository extends BaseRepository {
   Future<BaseResponse<dynamic>> delete(String id) {
     final cancelToken = CancelToken();
     return getResponse(
-      () => userRestClient.delete(id: id, cancelToken: cancelToken).onError((error, _) => catchError<dynamic>(error)),
+      () => userRestClient.delete(id: id, cancelToken: cancelToken),
       cancelToken: cancelToken,
     );
   }

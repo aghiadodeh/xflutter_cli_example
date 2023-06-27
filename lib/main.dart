@@ -1,3 +1,4 @@
+import 'network/config/http_config.dart';
 import 'package:xflutter_cli_example/local/isar.dart';
 
 import 'router/app_router.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
 
   await EasyLocalization.ensureInitialized();
   HttpOverrides.global = AppHttpOverrides();
@@ -22,7 +24,8 @@ void main() async {
   await AppStorage.storageConfig();
   ThemeController().init();
   await AppIsar.initialize();
-  runApp(
+  await httpConfig();
+ runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US')],
       path: 'assets/localization',

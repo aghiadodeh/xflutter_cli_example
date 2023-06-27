@@ -14,14 +14,14 @@ abstract class UserRestClient {
 
   @POST("/user")
   Future<BaseResponse<User>> create({
-    @Body() required User user,
+    @Body() required Map<String, dynamic> user,
     @CancelRequest() CancelToken? cancelToken,
   });
 
   @PUT("/user/{id}")
   Future<BaseResponse<User>> update({
     @Path("id") required String id,
-    @Body() required User user,
+    @Body() required Map<String, dynamic> user,
     @CancelRequest() CancelToken? cancelToken,
   });
 
