@@ -26,12 +26,16 @@ class LoggingInterceptor extends Interceptor {
     options.queryParameters.forEach((k, v) {
       logger('$k: $v', name: interceptorLogName);
     });
-    logger('------------------------------------------------------', name: interceptorLogName);
+    if (options.queryParameters.isNotEmpty) logger('------------------------------------------------------', name: interceptorLogName);
 
     if (options.data != null) {
-      logger("Body: ${options.data}", name: interceptorLogName);
-    }
+      try {
+        prettyLogger(options.data, name: interceptorLogName, prefix: "Body: ");
+      } catch (_) {
+        logger("Body: ${options.data}", name: interceptorLogName);
+      }
     logger('------------------------------------------------------', name: interceptorLogName);
+    }
 
     logger("--> END ${options.method.toUpperCase()}", name: interceptorLogName);
 
@@ -39,11 +43,11 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     logger('Response ERROR:', name: interceptorLogName);
 
-    logger("<-- ${err.message} ${(err.response?.requestOptions != null ? (err.response!.requestOptions.baseUrl + err.response!.requestOptions.path) : 'URL')}",
-        name: interceptorLogName);
+    final requestOptions = err.response?.requestOptions ?? RequestOptions();
+    logger("<-- ${err.message} ${requestOptions.baseUrl + requestOptions.path}", name: interceptorLogName);
 
     logger("${err.response != null ? err.response?.data : 'Unknown Error'}", name: interceptorLogName);
 
@@ -64,7 +68,7 @@ class LoggingInterceptor extends Interceptor {
     });
     logger('------------------------------------------------------', name: interceptorLogName);
 
-    logger('Response: ${response.data}', name: interceptorLogName);
+    prettyLogger(response.data, name: interceptorLogName, prefix: "Response: ");
 
     logger("<-- END HTTP", name: interceptorLogName);
     logger('------------------------------------------------------', name: interceptorLogName);

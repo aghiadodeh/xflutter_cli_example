@@ -3,26 +3,30 @@
 /// more info: https://xflutter-cli.aghiadodeh.com
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:xflutter_cli_example/extensions/view_extension.dart';
 import 'package:xflutter_cli_example/ui/resources/dimensions/dimensions.dart';
+import 'package:shimmer/shimmer.dart';
+import 'image_shimmer_widget.dart';
 
 class AppImage extends StatelessWidget {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final String? imageUrl;
   final Widget? errorWidget;
   final double raduis;
   final BoxFit? boxFit;
+  final bool isAsset;
 
   const AppImage({
-    required this.width,
-    required this.height,
-    required this.imageUrl,
+    this.width,
+    this.height,
+    this.imageUrl,
     this.raduis = unitAndHalf,
     this.errorWidget,
     this.boxFit,
+    this.isAsset = false,
     Key? key,
   }) : super(key: key);
 
@@ -39,24 +43,44 @@ class AppImage extends StatelessWidget {
 
   Widget fadeImage() {
     if (imageUrl == null) return const SizedBox();
-    return ImageFade(
-      image: FileImage(File(imageUrl!)),
-      fit: boxFit ?? BoxFit.cover,
-      width: width,
-      height: height,
-    );
+    return isAsset
+        ? ImageFade(
+            image: AssetImage(imageUrl!),
+            fit: boxFit ?? BoxFit.cover,
+            width: width,
+            height: height,
+          )
+        : ImageFade(
+            image: FileImage(File(imageUrl!)),
+            fit: boxFit ?? BoxFit.cover,
+            width: width,
+            height: height,
+          );
   }
 
   Widget fancyShimmerImage() {
     if (imageUrl == null) return const SizedBox();
-    return FancyShimmerImage(
+    return CachedNetworkImage(
+      alignment: Alignment.center,
       imageUrl: imageUrl!,
-      boxFit: boxFit ?? BoxFit.cover,
-      shimmerBaseColor: Colors.grey[400] ?? Colors.grey.withOpacity(0.5),
-      shimmerHighlightColor: Colors.grey[200] ?? Colors.grey.withOpacity(0.2),
-      errorWidget: errorWidget ?? const Center(child: Icon(Icons.error_outline)).size(width),
+      cacheKey: imageUrl,
+      fit: boxFit ?? BoxFit.cover,
       width: width,
       height: height,
+      memCacheWidth: width?.toInt(),
+      maxWidthDiskCache: width?.toInt(),
+      memCacheHeight: height?.toInt(),
+      maxHeightDiskCache: height?.toInt(),
+      placeholder: (context, url) => ImageShimmerWidget(
+        width: width,
+        height: height,
+        shimmerDirection: ShimmerDirection.ltr,
+        shimmerDuration: const Duration(milliseconds: 1500),
+        baseColor: Colors.grey[400] ?? Colors.grey.withOpacity(0.5),
+        highlightColor: Colors.grey[200] ?? Colors.grey.withOpacity(0.2),
+        backColor: const Color.fromRGBO(217, 217, 217, 0.5),
+      ),
+      errorWidget: (context, url, error) => errorWidget ?? const Center(child: Icon(Icons.error_outline)).size(width),
     );
   }
 }

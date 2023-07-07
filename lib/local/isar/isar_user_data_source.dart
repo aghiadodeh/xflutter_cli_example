@@ -9,7 +9,7 @@ import '../utils/isar_utils.dart';
 import '../models/user/user.dart';
 import 'package:get_it/get_it.dart';
 
-class IsarUserManager {
+class IsarUserDataSource {
   Isar get isar => GetIt.I.get<Isar>();
 
   /// [User] query builder with pagination
@@ -18,7 +18,7 @@ class IsarUserManager {
   }
 
   /// find [User] from local-database
-  User? findOne(String id) {
+  User? findOne(String? id) {
     return isar.isarUsers.where().idEqualTo(id).findFirstSync()?.fromIsar();
   }
 
@@ -39,18 +39,17 @@ class IsarUserManager {
     final local = _userQueryBuilder(page).findAllSync().map((e) => e.id).toList();
     final ids = data.map((e) => e.id).toList();
     final difference = local.where((element) => !ids.contains(element)).toList();
-
     isar.writeTxnSync(() {
       // delete difference between local and fetched list
       isar.isarUsers.deleteAllByIdSync(difference);
 
       // save new data
       isar.isarUsers.putAllByIdSync(objects);
-    });
+    }); 
   }
 
   /// delete [User] from local-database
-  void delete(String id) {
+  void delete(String? id) {
     isar.writeTxnSync(() => isar.isarUsers.deleteByIdSync(id));
   }
 }

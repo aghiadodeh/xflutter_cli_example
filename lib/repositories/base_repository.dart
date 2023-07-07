@@ -34,7 +34,7 @@ abstract class BaseRepository {
     bool success = true;
     if (kDebugMode) print(e);
     try {
-      if (e is DioError && e.type != DioErrorType.cancel) {
+      if (e is DioException && e.type != DioExceptionType.cancel) {
         success = false;
         if (e.response != null && e.response!.data is Map) {
           response = e.response!.data as Map<String, dynamic>;

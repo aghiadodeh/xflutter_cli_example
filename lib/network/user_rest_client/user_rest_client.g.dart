@@ -20,8 +20,8 @@ class _UserRestClient implements UserRestClient {
 
   @override
   Future<BaseResponse<User>> create({
-    required user,
-    cancelToken,
+    required Map<String, dynamic> user,
+    CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -42,7 +42,11 @@ class _UserRestClient implements UserRestClient {
               data: _data,
               cancelToken: cancelToken,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<User>.fromJson(
       _result.data!,
       (json) => User.fromJson(json as Map<String, dynamic>),
@@ -52,9 +56,9 @@ class _UserRestClient implements UserRestClient {
 
   @override
   Future<BaseResponse<User>> update({
-    required id,
-    required user,
-    cancelToken,
+    required String id,
+    required Map<String, dynamic> user,
+    CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -75,7 +79,11 @@ class _UserRestClient implements UserRestClient {
               data: _data,
               cancelToken: cancelToken,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<User>.fromJson(
       _result.data!,
       (json) => User.fromJson(json as Map<String, dynamic>),
@@ -85,10 +93,10 @@ class _UserRestClient implements UserRestClient {
 
   @override
   Future<BaseResponse<List<User>>> findAll({
-    required page,
-    perPage = Env.perPage,
-    query,
-    cancelToken,
+    required int page,
+    int perPage = Env.perPage,
+    String? query,
+    CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -98,7 +106,7 @@ class _UserRestClient implements UserRestClient {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<User>>>(Options(
       method: 'GET',
@@ -112,26 +120,32 @@ class _UserRestClient implements UserRestClient {
               data: _data,
               cancelToken: cancelToken,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<User>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<User>((i) => User.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<User>((i) => User.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
   Future<BaseResponse<User>> findOne({
-    required id,
-    cancelToken,
+    required String id,
+    CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
       method: 'GET',
@@ -145,7 +159,11 @@ class _UserRestClient implements UserRestClient {
               data: _data,
               cancelToken: cancelToken,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<User>.fromJson(
       _result.data!,
       (json) => User.fromJson(json as Map<String, dynamic>),
@@ -155,14 +173,14 @@ class _UserRestClient implements UserRestClient {
 
   @override
   Future<BaseResponse<dynamic>> delete({
-    required id,
-    cancelToken,
+    required String id,
+    CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -176,7 +194,11 @@ class _UserRestClient implements UserRestClient {
               data: _data,
               cancelToken: cancelToken,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -195,5 +217,22 @@ class _UserRestClient implements UserRestClient {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
