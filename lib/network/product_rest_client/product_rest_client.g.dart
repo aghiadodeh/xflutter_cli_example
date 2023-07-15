@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_rest_client.dart';
+part of 'product_rest_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'user_rest_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _UserRestClient implements UserRestClient {
-  _UserRestClient(
+class _ProductRestClient implements ProductRestClient {
+  _ProductRestClient(
     this._dio, {
     this.baseUrl,
   });
@@ -19,8 +19,8 @@ class _UserRestClient implements UserRestClient {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<User>> create({
-    required Map<String, dynamic> user,
+  Future<BaseResponse<Product>> create({
+    required Map<String, dynamic> product,
     CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
@@ -28,16 +28,16 @@ class _UserRestClient implements UserRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(user);
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
+    _data.addAll(product);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<Product>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user',
+              '/product',
               queryParameters: queryParameters,
               data: _data,
               cancelToken: cancelToken,
@@ -47,17 +47,17 @@ class _UserRestClient implements UserRestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<User>.fromJson(
+    final value = BaseResponse<Product>.fromJson(
       _result.data!,
-      (json) => User.fromJson(json as Map<String, dynamic>),
+      (json) => Product.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<User>> update({
+  Future<BaseResponse<Product>> update({
     required String id,
-    required Map<String, dynamic> user,
+    required Map<String, dynamic> product,
     CancelToken? cancelToken,
   }) async {
     const _extra = <String, dynamic>{};
@@ -65,16 +65,16 @@ class _UserRestClient implements UserRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(user);
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
+    _data.addAll(product);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<Product>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user/${id}',
+              '/product/${id}',
               queryParameters: queryParameters,
               data: _data,
               cancelToken: cancelToken,
@@ -84,15 +84,15 @@ class _UserRestClient implements UserRestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<User>.fromJson(
+    final value = BaseResponse<Product>.fromJson(
       _result.data!,
-      (json) => User.fromJson(json as Map<String, dynamic>),
+      (json) => Product.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<List<User>>> findAll({
+  Future<BaseResponse<ListResponse<Product>>> findAll({
     required int page,
     int perPage = Env.perPage,
     String? query,
@@ -108,14 +108,14 @@ class _UserRestClient implements UserRestClient {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<User>>>(Options(
+        _setStreamType<BaseResponse<ListResponse<Product>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user',
+              '/product',
               queryParameters: queryParameters,
               data: _data,
               cancelToken: cancelToken,
@@ -125,19 +125,18 @@ class _UserRestClient implements UserRestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<List<User>>.fromJson(
+    final value = BaseResponse<ListResponse<Product>>.fromJson(
       _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<User>((i) => User.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
+      (json) => ListResponse<Product>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => Product.fromJson(json as Map<String, dynamic>),
+      ),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<User>> findOne({
+  Future<BaseResponse<Product>> findOne({
     required String id,
     CancelToken? cancelToken,
   }) async {
@@ -146,15 +145,15 @@ class _UserRestClient implements UserRestClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<User>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<Product>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user/${id}',
+              '/product/${id}',
               queryParameters: queryParameters,
               data: _data,
               cancelToken: cancelToken,
@@ -164,9 +163,9 @@ class _UserRestClient implements UserRestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseResponse<User>.fromJson(
+    final value = BaseResponse<Product>.fromJson(
       _result.data!,
-      (json) => User.fromJson(json as Map<String, dynamic>),
+      (json) => Product.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -189,7 +188,7 @@ class _UserRestClient implements UserRestClient {
     )
             .compose(
               _dio.options,
-              '/user/${id}',
+              '/product/${id}',
               queryParameters: queryParameters,
               data: _data,
               cancelToken: cancelToken,

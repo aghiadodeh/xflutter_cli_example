@@ -6,40 +6,41 @@ import 'package:retrofit/retrofit.dart';
 import 'package:xflutter_cli_example/network/config/env.dart';
 import 'package:xflutter_cli_example/models/data_models.dart';
 import 'package:xflutter_cli_example/models/responses/base_response/base_response.dart';
-part 'user_rest_client.g.dart';
+import 'package:xflutter_cli_example/models/responses/list_response/list_response.dart';
+part 'product_rest_client.g.dart';
 
 @RestApi()
-abstract class UserRestClient {
-  factory UserRestClient(Dio dio) = _UserRestClient;
+abstract class ProductRestClient {
+  factory ProductRestClient(Dio dio) = _ProductRestClient;
 
-  @POST("/user")
-  Future<BaseResponse<User>> create({
-    @Body() required Map<String, dynamic> user,
+  @POST("/product")
+  Future<BaseResponse<Product>> create({
+    @Body() required Map<String, dynamic> product,
     @CancelRequest() CancelToken? cancelToken,
   });
 
-  @PUT("/user/{id}")
-  Future<BaseResponse<User>> update({
+  @PUT("/product/{id}")
+  Future<BaseResponse<Product>> update({
     @Path("id") required String id,
-    @Body() required Map<String, dynamic> user,
+    @Body() required Map<String, dynamic> product,
     @CancelRequest() CancelToken? cancelToken,
   });
 
-  @GET("/user")
-  Future<BaseResponse<List<User>>> findAll({
+  @GET("/product")
+  Future<BaseResponse<ListResponse<Product>>> findAll({
     @Query("page") required int page,
     @Query("per_page") int perPage = Env.perPage,
     @Query("search") String? query,
     @CancelRequest() CancelToken? cancelToken,
   });
 
-  @GET("/user/{id}")
-  Future<BaseResponse<User>> findOne({
+  @GET("/product/{id}")
+  Future<BaseResponse<Product>> findOne({
     @Path("id") required String id,
     @CancelRequest() CancelToken? cancelToken,
   });
 
-  @DELETE("/user/{id}")
+  @DELETE("/product/{id}")
   Future<BaseResponse<dynamic>> delete({
     @Path("id") required String id,
     @CancelRequest() CancelToken? cancelToken,
