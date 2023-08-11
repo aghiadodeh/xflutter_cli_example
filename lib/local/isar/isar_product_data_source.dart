@@ -9,10 +9,10 @@ import '../utils/isar_utils.dart';
 import '../models/product/product.dart';
 import 'isar_base_data_source.dart';
 
-class IsarProductDataSource extends IsarBaseDataSource<Product, int?> {
+class IsarProductDataSource extends IsarBaseDataSource<Product, int> {
   /// [Product] query builder with pagination
-  QueryBuilder<IsarProduct, IsarProduct, QAfterLimit> _productQueryBuilder(int page) {
-    return isar.isarProducts.where().offset(offset(page)).limit(Env.perPage);
+  QueryBuilder<IsarProduct, IsarProduct, QAfterLimit> _productQueryBuilder({int? page, Map<String, dynamic> filters = const {}}) {
+    return isar.isarProducts.where().optional(page != null, (q) => q.offset(offset(page)).limit(Env.perPage));
   }
 
   /// find [Product] from local-database
@@ -21,10 +21,16 @@ class IsarProductDataSource extends IsarBaseDataSource<Product, int?> {
     return isar.isarProducts.where().idEqualTo(id).findFirstSync()?.fromIsar();
   }
 
+  /// fetch cached [Product] list without pagination from local-database
+  @override
+  List<Product> findAll({Map<String, dynamic> filters = const {}}) {
+    return _productQueryBuilder(filters: filters).findAllSync().map((e) => e.fromIsar()).toList();
+  }
+
   /// get cached [Product] list with pagination from local-database
   @override
-  List<Product> findAll(int page, {Map<String, dynamic> filters = const {}}) {
-    final data = _productQueryBuilder(page).findAllSync();
+  List<Product> findByPage(int page, {Map<String, dynamic> filters = const {}}) {
+    final data = _productQueryBuilder(page: page, filters: filters).findAllSync();
     return data.map((e) => e.fromIsar()).toList();
   }
 
@@ -36,9 +42,9 @@ class IsarProductDataSource extends IsarBaseDataSource<Product, int?> {
 
   /// save list of [Product] in local-database
   @override
-  void insertAll(int page, List<Product> data) {
+  void insertAll(List<Product> data) {
     final objects = data.map((e) => e.toIsar()).toList();
-    final local = _productQueryBuilder(page).findAllSync().map((e) => e.id).toList();
+    final local = findAll().map((e) => e.id).toList();
     final ids = data.map((e) => e.id).toList();
     final difference = local.where((element) => !ids.contains(element)).toList();
     isar.writeTxnSync(() {

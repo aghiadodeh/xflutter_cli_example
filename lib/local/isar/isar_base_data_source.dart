@@ -15,14 +15,18 @@ abstract class IsarBaseDataSource<T, ID> {
   T? findOne(ID? id);
 
   /// fetch cached [T] list with pagination from local-database
-  List<T> findAll(int page, {Map<String, dynamic> filters = const {}});
+  List<T> findByPage(int page, {Map<String, dynamic> filters = const {}});
+
+  /// fetch cached [T] list without pagination from local-database
+  List<T> findAll({Map<String, dynamic> filters = const {}});
 
   /// add/update [T] into local-database
   void insert(T item);
 
   /// save list of [T] in local-database
-  void insertAll(int page, List<T> data);
+  void insertAll(List<T> data);
 
   /// delete [T] from local-database
   void delete(ID? id);
 }
+
