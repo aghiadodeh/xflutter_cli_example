@@ -13,6 +13,7 @@ _$_ListResponse<T> _$$_ListResponseFromJson<T>(
     _$_ListResponse<T>(
       total: json['total'] as int?,
       data: (json['data'] as List<dynamic>?)?.map(fromJsonT).toList(),
+      cached: json['cached'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_ListResponseToJson<T>(
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$_ListResponseToJson<T>(
     <String, dynamic>{
       'total': instance.total,
       'data': instance.data?.map(toJsonT).toList(),
+      'cached': instance.cached,
     };

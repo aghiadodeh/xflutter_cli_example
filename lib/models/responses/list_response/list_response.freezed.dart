@@ -23,6 +23,7 @@ ListResponse<T> _$ListResponseFromJson<T>(
 mixin _$ListResponse<T> {
   int? get total => throw _privateConstructorUsedError;
   List<T>? get data => throw _privateConstructorUsedError;
+  bool get cached => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
       throw _privateConstructorUsedError;
@@ -37,7 +38,7 @@ abstract class $ListResponseCopyWith<T, $Res> {
           ListResponse<T> value, $Res Function(ListResponse<T>) then) =
       _$ListResponseCopyWithImpl<T, $Res, ListResponse<T>>;
   @useResult
-  $Res call({int? total, List<T>? data});
+  $Res call({int? total, List<T>? data, bool cached});
 }
 
 /// @nodoc
@@ -55,6 +56,7 @@ class _$ListResponseCopyWithImpl<T, $Res, $Val extends ListResponse<T>>
   $Res call({
     Object? total = freezed,
     Object? data = freezed,
+    Object? cached = null,
   }) {
     return _then(_value.copyWith(
       total: freezed == total
@@ -65,6 +67,10 @@ class _$ListResponseCopyWithImpl<T, $Res, $Val extends ListResponse<T>>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>?,
+      cached: null == cached
+          ? _value.cached
+          : cached // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_ListResponseCopyWith<T, $Res>
       __$$_ListResponseCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({int? total, List<T>? data});
+  $Res call({int? total, List<T>? data, bool cached});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_ListResponseCopyWithImpl<T, $Res>
   $Res call({
     Object? total = freezed,
     Object? data = freezed,
+    Object? cached = null,
   }) {
     return _then(_$_ListResponse<T>(
       total: freezed == total
@@ -103,6 +110,10 @@ class __$$_ListResponseCopyWithImpl<T, $Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<T>?,
+      cached: null == cached
+          ? _value.cached
+          : cached // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -110,7 +121,8 @@ class __$$_ListResponseCopyWithImpl<T, $Res>
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 class _$_ListResponse<T> implements _ListResponse<T> {
-  const _$_ListResponse({this.total, final List<T>? data}) : _data = data;
+  const _$_ListResponse({this.total, final List<T>? data, this.cached = false})
+      : _data = data;
 
   factory _$_ListResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
@@ -129,8 +141,12 @@ class _$_ListResponse<T> implements _ListResponse<T> {
   }
 
   @override
+  @JsonKey()
+  final bool cached;
+
+  @override
   String toString() {
-    return 'ListResponse<$T>(total: $total, data: $data)';
+    return 'ListResponse<$T>(total: $total, data: $data, cached: $cached)';
   }
 
   @override
@@ -139,13 +155,14 @@ class _$_ListResponse<T> implements _ListResponse<T> {
         (other.runtimeType == runtimeType &&
             other is _$_ListResponse<T> &&
             (identical(other.total, total) || other.total == total) &&
-            const DeepCollectionEquality().equals(other._data, _data));
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.cached, cached) || other.cached == cached));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, total, const DeepCollectionEquality().hash(_data));
+      runtimeType, total, const DeepCollectionEquality().hash(_data), cached);
 
   @JsonKey(ignore: true)
   @override
@@ -160,8 +177,10 @@ class _$_ListResponse<T> implements _ListResponse<T> {
 }
 
 abstract class _ListResponse<T> implements ListResponse<T> {
-  const factory _ListResponse({final int? total, final List<T>? data}) =
-      _$_ListResponse<T>;
+  const factory _ListResponse(
+      {final int? total,
+      final List<T>? data,
+      final bool cached}) = _$_ListResponse<T>;
 
   factory _ListResponse.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
@@ -171,6 +190,8 @@ abstract class _ListResponse<T> implements ListResponse<T> {
   int? get total;
   @override
   List<T>? get data;
+  @override
+  bool get cached;
   @override
   @JsonKey(ignore: true)
   _$$_ListResponseCopyWith<T, _$_ListResponse<T>> get copyWith =>
